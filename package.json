@@ -1,0 +1,16 @@
+{
+    "name": "com.eliott.juicevfx",
+    "version": "1.0.0",
+    "displayName": "Juice VFX",
+    "description": "A customizable, artist-friendly game feel system.",
+    "unity": "2022.3",
+    "keywords": [
+        "vfx",
+        "juice",
+        "feedback"
+    ],
+    "author": {
+        "name": "Eliott",
+        "email": "eliott@example.com"
+    }
+}
