@@ -1,37 +1,35 @@
+#nullable enable
+
 using System.Collections.Generic;
 using GameFramework;
 using UnityEngine;
 
 namespace JuiceVFX
 {
-    /// <summary>
-    /// Component responsible for playing Juice Feedbacks.
-    /// </summary>
-    public class JuicePlayer : MonoBehaviour, ITickable
+    public class JuicePlayer : MonoBehaviour, IJuicePlayer
     {
         private List<JuiceEffectRunner> _activeRunners = new List<JuiceEffectRunner>();
         private List<JuiceEffectRunner> _runnersToRemove = new List<JuiceEffectRunner>();
 
-        /// <summary>
-        /// Plays the specified feedback.
-        /// </summary>
-        /// <param name="feedback">The feedback configuration to play.</param>
-        public void Play(JuiceFeedback feedback)
+        public void Play(JuiceFeedback feedback, IActor target, IActor? emitter = null, Vector3? contactPoint = null, Quaternion? rotation = null)
         {
             if (feedback == null) return;
+
+            var context = new JuiceFeedbackContext(emitter, target, contactPoint, rotation);
 
             foreach (var effectData in feedback.Effects)
             {
                 if (effectData == null) continue;
 
                 var runner = effectData.CreateRunner();
-                runner.Initialize(this);
+                runner.Initialize(this, context);
                 runner.Start(effectData.Delay);
                 _activeRunners.Add(runner);
             }
         }
-
-        public void Tick(float deltaTime)
+        
+        
+        private void Update()
         {
             if (_activeRunners.Count == 0) return;
 
@@ -39,7 +37,7 @@ namespace JuiceVFX
 
             foreach (var runner in _activeRunners)
             {
-                runner.Update(deltaTime);
+                runner.Update(Time.deltaTime);
                 if (runner.IsFinished)
                 {
                     _runnersToRemove.Add(runner);
@@ -50,19 +48,6 @@ namespace JuiceVFX
             {
                 _activeRunners.Remove(runner);
             }
-        }
-
-        // Ideally, ITickable is called by a central manager. 
-        // If not, we can use Update as a fallback, but we should ensure we don't double tick if a system is calling Tick.
-        // For simplicity in a standalone context, we can call Tick in Update if not managed externally.
-        // However, GameFramework usually implies a manager via IGameInstance or similar.
-        // Since we don't know the exact setup, we will use Update but respect the ITickable contract.
-        
-        private void Update()
-        {
-            // If the GameFramework handles ITickable, this might be redundant or handled elsewhere.
-            // Assuming standard MonoBehaviour usage for now.
-            Tick(Time.deltaTime);
         }
 
         private void OnDisable()

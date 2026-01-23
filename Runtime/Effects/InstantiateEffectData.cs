@@ -17,6 +17,9 @@ namespace JuiceVFX
         [Tooltip("Destroy the instantiated object after duration? (If false, it stays).")]
         public bool DestroyAfterDuration = true;
 
+        [Tooltip("Parent the instantiated object to the resolved Target? (Overrides ParentToPlayer)")]
+        public bool AttachToTarget = false;
+
         public override JuiceEffectRunner CreateRunner()
         {
             return new InstantiateEffectRunner(this);
@@ -41,12 +44,33 @@ namespace JuiceVFX
                 return;
             }
 
-            Vector3 spawnPos = player.transform.position + player.transform.TransformDirection(_data.LocalOffset); // Apply offset in local space
-            Quaternion spawnRot = player.transform.rotation;
+            Vector3 basePos = GetTargetPosition(_data.TargetType);
+            Quaternion baseRot = GetTargetRotation(_data.TargetType);
+            Transform targetTransform = GetTargetTransform(_data.TargetType);
+
+            // Calculate offset logic
+            Vector3 offset = _data.LocalOffset;
+            if (targetTransform != null)
+            {
+                // If we have a transform, treat offset as local
+                offset = targetTransform.TransformDirection(_data.LocalOffset);
+            }
+            else
+            {
+                // Otherwise rotate offset by base rotation (e.g. contact normal)
+                offset = baseRot * _data.LocalOffset;
+            }
+
+            Vector3 spawnPos = basePos + offset;
+            Quaternion spawnRot = baseRot; // User might want to offset rotation too, but currently only position offset in data
 
             _instance = Object.Instantiate(_data.Prefab, spawnPos, spawnRot);
             
-            if (_data.ParentToPlayer)
+            if (_data.AttachToTarget && targetTransform != null)
+            {
+                 _instance.transform.SetParent(targetTransform, true);
+            }
+            else if (_data.ParentToPlayer)
             {
                 _instance.transform.SetParent(player.transform, true);
             }

@@ -14,6 +14,10 @@ namespace JuiceVFX
         [Tooltip("Delay before the effect starts.")]
         public float Delay = 0f;
 
+        [Tooltip("What target should this effect apply to?")]
+        public JuiceTargetType TargetType = JuiceTargetType.Target;
+
+
         /// <summary>
         /// Creates the runner instance for this effect.
         /// </summary>

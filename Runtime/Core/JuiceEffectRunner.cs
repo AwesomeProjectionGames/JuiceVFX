@@ -1,4 +1,7 @@
+#nullable enable
+
 using UnityEngine;
+using GameFramework;
 
 namespace JuiceVFX
 {
@@ -9,6 +12,7 @@ namespace JuiceVFX
     public abstract class JuiceEffectRunner
     {
         protected JuicePlayer _player;
+        protected JuiceFeedbackContext _context;
         protected float _timer;
         protected float _delayTimer;
         public bool IsFinished { get; protected set; }
@@ -22,9 +26,10 @@ namespace JuiceVFX
         /// Initializes the runner with the player owner.
         /// </summary>
         /// <param name="player">The JuicePlayer that triggered this effect.</param>
-        public void Initialize(JuicePlayer player)
+        public void Initialize(JuicePlayer player, JuiceFeedbackContext context)
         {
             _player = player;
+            _context = context;
             IsFinished = false;
             IsPlaying = false;
         }
@@ -85,6 +90,58 @@ namespace JuiceVFX
             }
             IsPlaying = false;
             IsFinished = true;
+        }
+
+        protected Vector3 GetTargetPosition(JuiceTargetType type)
+        {
+            // Optimization: Try to get transform first
+            Transform t = GetTargetTransform(type);
+            if (t != null) return t.position;
+
+            // Handle non-transform cases (ContactPoint)
+            if (type == JuiceTargetType.ContactPoint)
+            {
+                if (_context.ContactPoint.HasValue) return _context.ContactPoint.Value;
+                // Fallback to target or emitter
+                if (_context.Target != null) return _context.Target.Transform.position;
+                if (_context.Emitter != null) return _context.Emitter.Transform.position;
+            }
+
+            return _player.transform.position;
+        }
+
+        protected Quaternion GetTargetRotation(JuiceTargetType type)
+        {
+            // Handle non-transform cases first
+            if (type == JuiceTargetType.ContactPoint)
+            {
+                if (_context.Rotation.HasValue) return _context.Rotation.Value;
+            }
+            
+            Transform? t = GetTargetTransform(type);
+            return t != null ? t.rotation : Quaternion.identity;
+        }
+
+        protected Transform? GetTargetTransform(JuiceTargetType type)
+        {
+            switch (type)
+            {
+                case JuiceTargetType.Target:
+                    return _context.Target?.Transform;
+                case JuiceTargetType.Emitter:
+                    return _context.Emitter?.Transform;
+                case JuiceTargetType.EmitterCamera:
+                    return ResolveCamera(_context.Emitter);
+                case JuiceTargetType.TargetCamera:
+                    return ResolveCamera(_context.Target);
+            }
+            return null;
+        }
+
+        private Transform? ResolveCamera(IActor actor)
+        {
+            // Try to get the camera from the actor's controller
+            return actor.Controller?.SpectateController?.CurrentCamera?.Transform;
         }
     }
 }
