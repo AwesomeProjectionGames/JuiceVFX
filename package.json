@@ -1,6 +1,6 @@
 {
-    "name": "com.eliott.juicevfx",
-    "version": "1.0.0",
+    "name": "com.awesomeprojection.juicevfx",
+    "version": "1.0.1",
     "displayName": "Juice VFX",
     "description": "A customizable, artist-friendly game feel system.",
     "unity": "2022.3",
