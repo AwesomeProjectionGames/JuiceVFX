@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewInstantiateEffect", menuName = "JuiceVFX/Effects/Instantiate")]
+    [CreateAssetMenu(fileName = "NewInstantiateEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Instantiate")]
     public class InstantiateEffectData : JuiceEffectData
     {
         [Tooltip("Prefab to instantiate.")]

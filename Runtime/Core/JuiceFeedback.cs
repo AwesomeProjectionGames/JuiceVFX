@@ -6,7 +6,7 @@ namespace JuiceVFX
     /// <summary>
     /// A collection of Juice Effects to be played together.
     /// </summary>
-    [CreateAssetMenu(fileName = "NewJuiceFeedback", menuName = "JuiceVFX/Feedback")]
+    [CreateAssetMenu(fileName = "NewJuiceFeedback", menuName = "AwesomeProjection/JuiceVFX/Feedback")]
     public class JuiceFeedback : ScriptableObject
     {
         [Tooltip("List of effects to play.")]

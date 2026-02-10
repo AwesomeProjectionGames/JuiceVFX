@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewSquashStretch", menuName = "JuiceVFX/Effects/Squash and Stretch")]
+    [CreateAssetMenu(fileName = "NewSquashStretch", menuName = "AwesomeProjection/JuiceVFX/Effects/Squash and Stretch")]
     public class SquashStretchEffectData : JuiceEffectData
     {
         [Tooltip("Curve for scale multiplier over time.")]

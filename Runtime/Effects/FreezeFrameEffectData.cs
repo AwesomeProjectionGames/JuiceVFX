@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewFreezeFrame", menuName = "JuiceVFX/Effects/Freeze Frame")]
+    [CreateAssetMenu(fileName = "NewFreezeFrame", menuName = "AwesomeProjection/JuiceVFX/Effects/Freeze Frame")]
     public class FreezeFrameEffectData : JuiceEffectData
     {
         [Tooltip("Time scale during the freeze.")]

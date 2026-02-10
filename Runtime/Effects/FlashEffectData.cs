@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewFlashEffect", menuName = "JuiceVFX/Effects/Flash")]
+    [CreateAssetMenu(fileName = "NewFlashEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Flash")]
     public class FlashEffectData : JuiceEffectData
     {
         [Tooltip("Color of the flash.")]

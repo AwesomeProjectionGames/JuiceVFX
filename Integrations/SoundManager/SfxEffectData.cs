@@ -7,7 +7,7 @@ namespace JuiceVFX.Integrations.SoundManager
     /// <summary>
     /// Effect that plays a sound using the SoundManager system and modifiers.
     /// </summary>
-    [CreateAssetMenu(fileName = "NewSfxEffect", menuName = "JuiceVFX/Effects/SoundManager SFX")]
+    [CreateAssetMenu(fileName = "NewSfxEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/SoundManager SFX")]
     public class SfxEffectData : JuiceEffectData
     {
         [Header("Sound Settings")]

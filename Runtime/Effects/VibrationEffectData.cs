@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewVibrationEffect", menuName = "JuiceVFX/Effects/Vibration")]
+    [CreateAssetMenu(fileName = "NewVibrationEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Vibration")]
     public class VibrationEffectData : JuiceEffectData
     {
         [Tooltip("Low Frequency Motor speed curve.")]

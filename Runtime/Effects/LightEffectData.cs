@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewLightEffect", menuName = "JuiceVFX/Effects/Light")]
+    [CreateAssetMenu(fileName = "NewLightEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Light")]
     public class LightEffectData : JuiceEffectData
     {
         [Tooltip("Color of the light.")]
