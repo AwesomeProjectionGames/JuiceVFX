@@ -140,6 +140,7 @@ namespace JuiceVFX
 
         private Transform? ResolveCamera(IActor actor)
         {
+            // Try to get the camera from the actor's controller
             return (actor.Controller?.SpectateController?.CurrentCamera as MonoBehaviour)?.transform;
         }
     }
