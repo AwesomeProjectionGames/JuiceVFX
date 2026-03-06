@@ -14,7 +14,7 @@ namespace JuiceVFX
             UpdateTargetRenderers();
         }
 
-        private void UpdateTargetRenderers()
+        public void UpdateTargetRenderers()
         {
             if (_juicePlayer == null) return;
 
