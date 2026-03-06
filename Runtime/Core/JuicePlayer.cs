@@ -2,11 +2,15 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace JuiceVFX
 {
     public class JuicePlayer : MonoBehaviour, IJuicePlayer
     {
+        public Gamepad? TargetGamepad;
+        public Renderer[] targetRenderers = {};
+
         private List<JuiceEffectRunner> _activeRunners = new List<JuiceEffectRunner>();
         private List<JuiceEffectRunner> _runnersToRemove = new List<JuiceEffectRunner>();
 
@@ -14,7 +18,8 @@ namespace JuiceVFX
         {
             if (feedback == null) return;
 
-            var context = new JuiceFeedbackContext(contactPoint, rotation);
+            var gamepad = TargetGamepad ?? Gamepad.current;
+            var context = new JuiceFeedbackContext(contactPoint, rotation, gamepad, targetRenderers);
 
             foreach (var effectData in feedback.Effects)
             {

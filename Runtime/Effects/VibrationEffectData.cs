@@ -30,7 +30,7 @@ namespace JuiceVFX
 
         public override void OnStart(JuicePlayer player)
         {
-            _gamepad = Gamepad.current;
+            _gamepad = Context.Gamepad;
         }
 
         public override void OnUpdate(float deltaTime)

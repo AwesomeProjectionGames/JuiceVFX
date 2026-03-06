@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace JuiceVFX
 {
@@ -17,11 +18,15 @@ namespace JuiceVFX
     {
         public Vector3? ContactPoint;
         public Quaternion? Rotation;
+        public Gamepad Gamepad;
+        public Renderer[] Renderers;
 
-        public JuiceFeedbackContext(Vector3? contactPoint = null, Quaternion? rotation = null)
+        public JuiceFeedbackContext(Vector3? contactPoint = null, Quaternion? rotation = null, Gamepad gamepad = null, Renderer[] renderers = null)
         {
             ContactPoint = contactPoint;
             Rotation = rotation;
+            Gamepad = gamepad;
+            Renderers = renderers;
         }
     }
 }

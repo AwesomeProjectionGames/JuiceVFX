@@ -7,7 +7,7 @@ namespace JuiceVFX
     {
         [Tooltip("Color of the flash.")]
         public Color FlashColor = Color.white;
-        
+
         [Tooltip("Intensity curve of the flash over time.")]
         public AnimationCurve IntensityCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
@@ -37,7 +37,7 @@ namespace JuiceVFX
 
         public override void OnStart(JuicePlayer player)
         {
-            _renderers = player.GetComponentsInChildren<Renderer>();
+            _renderers = Context.Renderers;
             _colorPropID = Shader.PropertyToID(_data.ColorPropertyName);
             _propBlock = new MaterialPropertyBlock();
         }
@@ -57,7 +57,7 @@ namespace JuiceVFX
 
                 if (_data.UseMaterialInstance)
                 {
-                     renderer.material.SetColor(_colorPropID, finalColor);
+                    renderer.material.SetColor(_colorPropID, finalColor);
                 }
                 else
                 {
@@ -81,15 +81,15 @@ namespace JuiceVFX
             // Flash usually implies additive emission or overlay.
             // If it modifies BaseColor, we need to store original. 
             // For simplicity, let's assume Emission for now or that the curve goes to 0 (default color).
-            
+
             // To be safe, if we used PropertyBlock, we should probably clear the property if possible, 
             // or set it to 0 interaction if we assume it was 0 before.
             // A better approach for Flash is usually setting Emission.
-            
-            float finalIntensity = _data.IntensityCurve.Evaluate(1f); 
+
+            float finalIntensity = _data.IntensityCurve.Evaluate(1f);
             Color finalColor = _data.FlashColor * finalIntensity; // Should be black if curve ends at 0
 
-             foreach (var renderer in _renderers)
+            foreach (var renderer in _renderers)
             {
                 if (renderer == null) continue;
 
