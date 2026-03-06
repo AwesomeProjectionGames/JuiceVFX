@@ -10,6 +10,7 @@ namespace JuiceVFX
     /// </summary>
     public abstract class JuiceEffectRunner
     {
+        public JuiceEffectData EffectData { get; internal set; } = null!;
         protected JuicePlayer Player = null!;
         protected JuiceFeedbackContext Context;
         protected float _timer;

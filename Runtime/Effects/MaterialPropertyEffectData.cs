@@ -50,6 +50,15 @@ namespace JuiceVFX
         {
             return new MaterialPropertyEffectRunner(this);
         }
+
+        public override bool IsSameEffect(JuiceEffectData other)
+        {
+            // We consider it the "same effect" if it's trying to modify the same property on the same material.
+            // For caching purposes, we cannot allow multiple instances of the same property to run simultaneously, otherwise they would conflict with each other (initial value to return to at the end for example).
+            return other is MaterialPropertyEffectData otherData &&
+                   PropertyType == otherData.PropertyType &&
+                   PropertyName == otherData.PropertyName;
+        }
     }
 
     public class MaterialPropertyEffectRunner : JuiceEffectRunner

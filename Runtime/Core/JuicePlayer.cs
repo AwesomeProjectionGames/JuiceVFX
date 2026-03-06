@@ -27,7 +27,19 @@ namespace JuiceVFX
             {
                 if (effectData == null) continue;
 
+                // Stop and remove any existing runner with the same effect data to prevent duplicates / race conditions.
+                for (int i = _activeRunners.Count - 1; i >= 0; i--)
+                {
+                    var existingRunner = _activeRunners[i];
+                    if (existingRunner.EffectData != null && effectData.IsSameEffect(existingRunner.EffectData))
+                    {
+                        existingRunner.Stop();
+                        _activeRunners.RemoveAt(i);
+                    }
+                }
+
                 var runner = effectData.CreateRunner();
+                runner.EffectData = effectData;
                 runner.Initialize(this, context);
                 runner.Start(effectData.Delay);
                 _activeRunners.Add(runner);

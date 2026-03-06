@@ -18,5 +18,16 @@ namespace JuiceVFX
         /// Creates the runner instance for this effect.
         /// </summary>
         public abstract JuiceEffectRunner CreateRunner();
+
+        /// <summary>
+        /// Determines if another effect is considered equal, allowing the runner to stop
+        /// existing similar effects when a new one is played to prevent race conditions.
+        /// By default, it considers them equal if they are of the exact same data type.
+        /// </summary>
+        public virtual bool IsSameEffect(JuiceEffectData other)
+        {
+            if (other == null) return false;
+            return this.GetType() == other.GetType();
+        }
     }
 }

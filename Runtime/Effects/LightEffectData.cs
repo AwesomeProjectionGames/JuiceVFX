@@ -24,6 +24,11 @@ namespace JuiceVFX
         {
             return new LightEffectRunner(this);
         }
+
+        public override bool IsSameEffect(JuiceEffectData other)
+        {
+            return false; // This effect can run in parallel with other instances of itself without caching issues, so we return false to allow multiple instances to run simultaneously.
+        }
     }
 
     public class LightEffectRunner : JuiceEffectRunner
