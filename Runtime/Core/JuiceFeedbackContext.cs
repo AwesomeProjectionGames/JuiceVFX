@@ -20,13 +20,15 @@ namespace JuiceVFX
         public Quaternion? Rotation;
         public Gamepad Gamepad;
         public Renderer[] Renderers;
+        public Transform RootTransform;
 
-        public JuiceFeedbackContext(Vector3? contactPoint = null, Quaternion? rotation = null, Gamepad gamepad = null, Renderer[] renderers = null)
+        public JuiceFeedbackContext(Vector3? contactPoint = null, Quaternion? rotation = null, Gamepad gamepad = null, Renderer[] renderers = null, Transform rootTransform = null)
         {
             ContactPoint = contactPoint;
             Rotation = rotation;
             Gamepad = gamepad;
             Renderers = renderers;
+            RootTransform = rootTransform;
         }
     }
 }

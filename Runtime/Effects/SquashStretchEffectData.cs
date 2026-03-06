@@ -9,7 +9,7 @@ namespace JuiceVFX
         public AnimationCurve ScaleCurveX = AnimationCurve.EaseInOut(0, 1, 1, 1);
         public AnimationCurve ScaleCurveY = AnimationCurve.Constant(0, 1, 1);
         public AnimationCurve ScaleCurveZ = AnimationCurve.EaseInOut(0, 1, 1, 1);
-        
+
         [Tooltip("Return to original scale after effect finishes?")]
         public bool ResetOnComplete = true;
 
@@ -32,15 +32,20 @@ namespace JuiceVFX
 
         public override void OnStart(JuicePlayer player)
         {
-            _target = player.transform;
-            _initialScale = _target.localScale;
+            _target = Context.RootTransform;
+            if (_target != null)
+            {
+                _initialScale = _target.localScale;
+            }
         }
 
         public override void OnUpdate(float deltaTime)
         {
+            if (_target == null) return;
+
             _timer += deltaTime;
             float t = Mathf.Clamp01(_timer / _data.Duration);
-            
+
             // If duration is 0, we assume instant or one-shot, but for curves we need time.
             if (_data.Duration <= 0) t = 1f;
 
