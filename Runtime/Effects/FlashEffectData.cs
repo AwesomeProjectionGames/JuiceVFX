@@ -1,3 +1,5 @@
+#nullable enable
+
 using UnityEngine;
 
 namespace JuiceVFX
@@ -5,17 +7,12 @@ namespace JuiceVFX
     [CreateAssetMenu(fileName = "NewFlashEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Flash")]
     public class FlashEffectData : JuiceEffectData
     {
-        [Tooltip("Color of the flash.")]
-        public Color FlashColor = Color.white;
+        [Tooltip("The material to apply during the flash.")]
+        public Material? FlashMaterial;
 
-        [Tooltip("Intensity curve of the flash over time.")]
-        public AnimationCurve IntensityCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
-
-        [Tooltip("Name of the color property in the shader (e.g. _EmissionColor, _BaseColor).")]
-        public string ColorPropertyName = "_EmissionColor";
-
-        [Tooltip("If true, it will modify the material directly (cloning it). Use carefully. Default is PropertyBlock.")]
-        public bool UseMaterialInstance = false;
+        [Tooltip("Number of times it blinks (swaps to the flash material) during the effect duration.")]
+        [Min(1)]
+        public int BlinkCount = 3;
 
         public override JuiceEffectRunner CreateRunner()
         {
@@ -26,9 +23,9 @@ namespace JuiceVFX
     public class FlashEffectRunner : JuiceEffectRunner
     {
         private FlashEffectData _data;
-        private Renderer[] _renderers;
-        private MaterialPropertyBlock _propBlock;
-        private int _colorPropID;
+        private Renderer[]? _renderers;
+        private Material[][]? _originalMaterials;
+        private bool _isCurrentlyFlashing;
 
         public FlashEffectRunner(FlashEffectData data)
         {
@@ -38,33 +35,46 @@ namespace JuiceVFX
         public override void OnStart(JuicePlayer player)
         {
             _renderers = Context.Renderers;
-            _colorPropID = Shader.PropertyToID(_data.ColorPropertyName);
-            _propBlock = new MaterialPropertyBlock();
+
+            if (_renderers != null)
+            {
+                _originalMaterials = new Material[_renderers.Length][];
+                for (int i = 0; i < _renderers.Length; i++)
+                {
+                    if (_renderers[i] != null)
+                    {
+                        _originalMaterials[i] = _renderers[i].sharedMaterials;
+                    }
+                }
+            }
+
+            _isCurrentlyFlashing = false;
         }
 
         public override void OnUpdate(float deltaTime)
         {
+            // If data is invalid, stop immediately
+            if (_renderers == null || _data.FlashMaterial == null || _data.BlinkCount <= 0 || _data.Duration <= 0)
+            {
+                Stop();
+                return;
+            }
+
             _timer += deltaTime;
             float t = Mathf.Clamp01(_timer / _data.Duration);
-            if (_data.Duration <= 0) t = 1f;
 
-            float intensity = _data.IntensityCurve.Evaluate(t);
-            Color finalColor = _data.FlashColor * intensity;
+            float blinkDuration = _data.Duration / _data.BlinkCount;
+            float phaseDuration = blinkDuration / 2f;
 
-            foreach (var renderer in _renderers)
+            int currentPhase = Mathf.FloorToInt(_timer / phaseDuration);
+
+            // Even phases (0, 2, 4...) are ON, odd phases (1, 3, 5...) are OFF
+            bool shouldFlash = (currentPhase % 2) == 0 && t < 1f;
+
+            if (shouldFlash != _isCurrentlyFlashing)
             {
-                if (renderer == null) continue;
-
-                if (_data.UseMaterialInstance)
-                {
-                    renderer.material.SetColor(_colorPropID, finalColor);
-                }
-                else
-                {
-                    renderer.GetPropertyBlock(_propBlock);
-                    _propBlock.SetColor(_colorPropID, finalColor);
-                    renderer.SetPropertyBlock(_propBlock);
-                }
+                _isCurrentlyFlashing = shouldFlash;
+                ApplyMaterials(shouldFlash);
             }
 
             if (t >= 1f)
@@ -75,33 +85,37 @@ namespace JuiceVFX
 
         public override void OnStop()
         {
-            // Reset to black/zero emission or handle cleanup? 
-            // Property blocks persist. We should probably reset the color to black/transparent if it's emission.
-            // But if it's BaseColor, we might override the texture.
-            // Flash usually implies additive emission or overlay.
-            // If it modifies BaseColor, we need to store original. 
-            // For simplicity, let's assume Emission for now or that the curve goes to 0 (default color).
-
-            // To be safe, if we used PropertyBlock, we should probably clear the property if possible, 
-            // or set it to 0 interaction if we assume it was 0 before.
-            // A better approach for Flash is usually setting Emission.
-
-            float finalIntensity = _data.IntensityCurve.Evaluate(1f);
-            Color finalColor = _data.FlashColor * finalIntensity; // Should be black if curve ends at 0
-
-            foreach (var renderer in _renderers)
+            if (_isCurrentlyFlashing)
             {
+                ApplyMaterials(false);
+            }
+        }
+
+        private void ApplyMaterials(bool flash)
+        {
+            if (_renderers == null || _originalMaterials == null || _data.FlashMaterial == null) return;
+
+            for (int i = 0; i < _renderers.Length; i++)
+            {
+                var renderer = _renderers[i];
                 if (renderer == null) continue;
 
-                if (!_data.UseMaterialInstance)
+                if (flash)
                 {
-                    renderer.GetPropertyBlock(_propBlock);
-                    _propBlock.SetColor(_colorPropID, finalColor);
-                    renderer.SetPropertyBlock(_propBlock);
+                    var materials = renderer.sharedMaterials;
+                    var flashMaterials = new Material[materials.Length];
+                    for (int j = 0; j < materials.Length; j++)
+                    {
+                        flashMaterials[j] = _data.FlashMaterial;
+                    }
+                    renderer.sharedMaterials = flashMaterials;
                 }
                 else
                 {
-                    renderer.material.SetColor(_colorPropID, finalColor);
+                    if (_originalMaterials[i] != null)
+                    {
+                        renderer.sharedMaterials = _originalMaterials[i];
+                    }
                 }
             }
         }
