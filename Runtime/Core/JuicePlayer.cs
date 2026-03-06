@@ -8,7 +8,7 @@ namespace JuiceVFX
 {
     public class JuicePlayer : MonoBehaviour, IJuicePlayer
     {
-        public Gamepad? TargetGamepad;
+        public Gamepad[] TargetGamepads;
         public Renderer[] targetRenderers = { };
         public Transform targetRoot;
 
@@ -19,9 +19,9 @@ namespace JuiceVFX
         {
             if (feedback == null) return;
 
-            var gamepad = TargetGamepad ?? Gamepad.current;
+            var gamepads = (TargetGamepads != null && TargetGamepads.Length > 0) ? TargetGamepads : (Gamepad.current != null ? new[] { Gamepad.current } : System.Array.Empty<Gamepad>());
             var root = targetRoot != null ? targetRoot : transform;
-            var context = new JuiceFeedbackContext(contactPoint, rotation, gamepad, targetRenderers, root);
+            var context = new JuiceFeedbackContext(contactPoint, rotation, gamepads, targetRenderers, root);
 
             foreach (var effectData in feedback.Effects)
             {

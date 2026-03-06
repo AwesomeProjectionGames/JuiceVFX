@@ -21,7 +21,7 @@ namespace JuiceVFX
     public class VibrationEffectRunner : JuiceEffectRunner
     {
         private VibrationEffectData _data;
-        private Gamepad _gamepad;
+        private Gamepad[] _gamepads;
 
         public VibrationEffectRunner(VibrationEffectData data)
         {
@@ -30,12 +30,12 @@ namespace JuiceVFX
 
         public override void OnStart(JuicePlayer player)
         {
-            _gamepad = Context.Gamepad;
+            _gamepads = Context.Gamepads ?? System.Array.Empty<Gamepad>();
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            if (_gamepad == null) return;
+            if (_gamepads == null || _gamepads.Length == 0) return;
 
             _timer += deltaTime;
             float t = Mathf.Clamp01(_timer / _data.Duration);
@@ -44,7 +44,11 @@ namespace JuiceVFX
             float low = _data.LowFrequencyMotor.Evaluate(t);
             float high = _data.HighFrequencyMotor.Evaluate(t);
 
-            _gamepad.SetMotorSpeeds(low, high);
+            foreach (var gamepad in _gamepads)
+            {
+                if (gamepad == null) continue;
+                gamepad.SetMotorSpeeds(low, high);
+            }
 
             if (t >= 1f)
             {
@@ -54,9 +58,13 @@ namespace JuiceVFX
 
         public override void OnStop()
         {
-            if (_gamepad != null)
+            if (_gamepads != null)
             {
-                _gamepad.SetMotorSpeeds(0, 0);
+                foreach (var gamepad in _gamepads)
+                {
+                    if (gamepad == null) continue;
+                    gamepad.SetMotorSpeeds(0, 0);
+                }
             }
         }
     }
