@@ -1,7 +1,6 @@
 #nullable enable
 
 using System.Collections.Generic;
-using GameFramework;
 using UnityEngine;
 
 namespace JuiceVFX
@@ -11,11 +10,11 @@ namespace JuiceVFX
         private List<JuiceEffectRunner> _activeRunners = new List<JuiceEffectRunner>();
         private List<JuiceEffectRunner> _runnersToRemove = new List<JuiceEffectRunner>();
 
-        public void Play(JuiceFeedback feedback, IActor target, IActor? emitter = null, Vector3? contactPoint = null, Quaternion? rotation = null)
+        public void Play(JuiceFeedback feedback, Vector3? contactPoint = null, Quaternion? rotation = null)
         {
             if (feedback == null) return;
 
-            var context = new JuiceFeedbackContext(emitter, target, contactPoint, rotation);
+            var context = new JuiceFeedbackContext(contactPoint, rotation);
 
             foreach (var effectData in feedback.Effects)
             {
@@ -27,8 +26,8 @@ namespace JuiceVFX
                 _activeRunners.Add(runner);
             }
         }
-        
-        
+
+
         private void Update()
         {
             if (_activeRunners.Count == 0) return;

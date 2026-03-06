@@ -57,7 +57,6 @@ namespace JuiceVFX
 
                 if (_data.UseMaterialInstance)
                 {
-                     // Not recommended but supported
                      renderer.material.SetColor(_colorPropID, finalColor);
                 }
                 else

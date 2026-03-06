@@ -40,25 +40,10 @@ namespace JuiceVFX
         }
 
         public override void OnStart(JuicePlayer player)
-        {
-            _target = GetTargetTransform(_data.TargetType);
-            
-            if (_target == null)
-            {
-                // Fallback to player if specific target not found, or just do nothing?
-                // The base helper GetTargetTransform falls back to null if not found (except UseBinding/Target which tries context).
-                // Let's fallback to player if null, or just stop. 
-                // If I configured "Target" and there is no target, I probably don't want to shake the player (self).
-                // But GetTargetTransform returns null if not found.
-                // Let's try one fallback: if everything fails, use player.
-                _target = player.transform;
-            }
-
-            if (_target != null)
-            {
-                _initialPos = _target.localPosition;
-                _initialRot = _target.localRotation;
-            }
+        { 
+            _target = player.transform;
+            _initialPos = _target.localPosition; 
+            _initialRot = _target.localRotation;
             
             _seed = _data.Randomize ? Random.Range(0f, 100f) : 0f;
         }

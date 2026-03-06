@@ -5,6 +5,9 @@ namespace JuiceVFX
     [CreateAssetMenu(fileName = "NewLightEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Light")]
     public class LightEffectData : JuiceEffectData
     {
+        [Tooltip("What target should this effect apply to?")]
+        public JuiceTargetType TargetType = JuiceTargetType.Target;
+        
         [Tooltip("Color of the light.")]
         public Color LightColor = Color.white;
         
@@ -37,7 +40,14 @@ namespace JuiceVFX
         public override void OnStart(JuicePlayer player)
         {
            _lightObj = new GameObject("JuiceLight");
-           _lightObj.transform.position = player.transform.position + player.transform.TransformDirection(_data.LocalOffset);
+           if(_data.TargetType == JuiceTargetType.ContactPoint && Context.ContactPoint != null)
+           {
+               _lightObj.transform.position = Context.ContactPoint.Value + _data.LocalOffset;
+           }
+           else
+           {
+               _lightObj.transform.position = player.transform.position + player.transform.TransformDirection(_data.LocalOffset);
+           }
            _lightObj.transform.SetParent(player.transform, true);
 
            _lightComp = _lightObj.AddComponent<Light>();

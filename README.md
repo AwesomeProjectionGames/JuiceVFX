@@ -4,9 +4,8 @@ A powerful, customizable, and artist-friendly system for adding "juice" (game fe
 
 ## Features
 
-- **Event-Driven**: Trigger effects via UnityEvents, C# Events, or the GameFramework EventBus.
+- **Event-Driven**: Trigger effects via UnityEvents or C# Events.
 - **Modular**: Mix and match effects using `JuiceFeedback` ScriptableObjects.
-- **Performant**: Uses `ITickable` from GameFramework for efficient updates.
 - **Artist Friendly**: Heavily relies on AnimationCurves and visual cues.
 
 ## Effects Included
@@ -23,6 +22,5 @@ A powerful, customizable, and artist-friendly system for adding "juice" (game fe
 
 ## Dependencies
 
-- **GameFramework**: Used for `ITickable`, `IHealth`, `IEventBus`.
 - **Unity Input System**: Used for gamepad vibration.
 - **URP (Optional)**: For Post Processing effects.

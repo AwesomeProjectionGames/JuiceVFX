@@ -11,14 +11,14 @@ namespace JuiceVFX
         [Tooltip("Local position offset.")]
         public Vector3 LocalOffset;
         
-        [Tooltip("Parent the instantiated object to the player?")]
-        public bool ParentToPlayer = false;
+        [Tooltip("What target should this effect apply to?")]
+        public JuiceTargetType TargetType = JuiceTargetType.Target;
+        
+        [Tooltip("Parent the instantiated object to the resolved Target? (Overrides ParentToPlayer)")]
+        public bool AttachToTarget = false;
 
         [Tooltip("Destroy the instantiated object after duration? (If false, it stays).")]
         public bool DestroyAfterDuration = true;
-
-        [Tooltip("Parent the instantiated object to the resolved Target? (Overrides ParentToPlayer)")]
-        public bool AttachToTarget = false;
 
         public override JuiceEffectRunner CreateRunner()
         {
@@ -46,33 +46,17 @@ namespace JuiceVFX
 
             Vector3 basePos = GetTargetPosition(_data.TargetType);
             Quaternion baseRot = GetTargetRotation(_data.TargetType);
-            Transform targetTransform = GetTargetTransform(_data.TargetType);
 
-            // Calculate offset logic
-            Vector3 offset = _data.LocalOffset;
-            if (targetTransform != null)
-            {
-                // If we have a transform, treat offset as local
-                offset = targetTransform.TransformDirection(_data.LocalOffset);
-            }
-            else
-            {
-                // Otherwise rotate offset by base rotation (e.g. contact normal)
-                offset = baseRot * _data.LocalOffset;
-            }
+            Vector3 offset = baseRot * _data.LocalOffset;
 
             Vector3 spawnPos = basePos + offset;
             Quaternion spawnRot = baseRot; // User might want to offset rotation too, but currently only position offset in data
 
             _instance = Object.Instantiate(_data.Prefab, spawnPos, spawnRot);
             
-            if (_data.AttachToTarget && targetTransform != null)
+            if (_data.AttachToTarget)
             {
-                 _instance.transform.SetParent(targetTransform, true);
-            }
-            else if (_data.ParentToPlayer)
-            {
-                _instance.transform.SetParent(player.transform, true);
+                 _instance.transform.SetParent(player.transform, true);
             }
         }
 

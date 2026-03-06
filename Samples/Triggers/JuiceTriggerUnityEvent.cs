@@ -1,13 +1,9 @@
-﻿using GameFramework;
-using GameFramework.Dependencies;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace JuiceVFX
 {
-    public class JuiceTriggerUnityEvent : MonoBehaviour, IActorComponent
+    public class JuiceTriggerUnityEvent : MonoBehaviour
     {
-        public IActor Actor { get; set; }
-        
         [Tooltip("The JuicePlayer to control.")]
         public JuicePlayer targetPlayer;
 
@@ -18,7 +14,7 @@ namespace JuiceVFX
         {
             if (targetPlayer != null && feedback != null)
             {
-                targetPlayer.Play(feedback, Actor);
+                targetPlayer.Play(feedback);
             }
         }
     }

@@ -4,7 +4,6 @@
     "references": [
         "JuiceVFX",
         "SoundManager",
-        "GameFramework",
         "VirtualListeners"
     ],
     "includePlatforms": [],
