@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace JuiceVFX
 {
@@ -15,6 +16,11 @@ namespace JuiceVFX
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
         void Play(JuiceFeedback feedback, Vector3? contactPoint = null, Quaternion? rotation = null);
+
+        /// <summary>
+        /// Plays a collection of effects directly.
+        /// </summary>
+        void Play(IEnumerable<JuiceEffectData> effects, Vector3? contactPoint = null, Quaternion? rotation = null);
 
         public void StopAll();
     }

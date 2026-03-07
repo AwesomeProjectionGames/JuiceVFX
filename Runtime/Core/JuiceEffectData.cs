@@ -2,12 +2,21 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
+    public enum JuiceEffectTarget
+    {
+        Emitter,
+        Camera
+    }
+
     /// <summary>
     /// Base class for all Juice Effect data assets.
     /// Defines the configuration for a specific effect.
     /// </summary>
     public abstract class JuiceEffectData : ScriptableObject
     {
+        [Tooltip("Target of the effect.")]
+        public JuiceEffectTarget Target = JuiceEffectTarget.Emitter;
+
         [Tooltip("Duration of the effect in seconds.")]
         public float Duration = 0.5f;
 
