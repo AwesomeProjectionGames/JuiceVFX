@@ -86,21 +86,23 @@ namespace JuiceVFX
         /// Plays the specified feedback.
         /// </summary>
         /// <param name="feedback">The feedback configuration to play.</param>
+        /// <param name="isCameraTarget">True if the play is addressed to a camera.</param>
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
-        public void Play(JuiceFeedback feedback, Vector3? contactPoint = null, Quaternion? rotation = null)
+        public void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null)
         {
             if (feedback == null) return;
-            Play(feedback.Effects, contactPoint, rotation);
+            Play(feedback.Effects, isCameraTarget, contactPoint, rotation);
         }
 
         /// <summary>
         /// Plays a collection of effects directly.
         /// </summary>
         /// <param name="effects">The collection of effect data to run.</param>
+        /// <param name="isCameraTarget">True if the play is addressed to a camera.</param>
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
-        public void Play(IEnumerable<JuiceEffectData> effects, Vector3? contactPoint = null, Quaternion? rotation = null)
+        public void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null)
         {
             if (effects == null) return;
 
@@ -111,7 +113,7 @@ namespace JuiceVFX
             {
                 if (effectData == null) continue;
 
-                if (effectData.Target == JuiceEffectTarget.Camera)
+                if (!isCameraTarget && effectData.Target == JuiceEffectTarget.Camera)
                 {
                     RedirectEffectToCamera(effectData, ref cameraEffects);
                     continue;
@@ -151,11 +153,7 @@ namespace JuiceVFX
         {
             if (cameraEffects == null) cameraEffects = new List<JuiceEffectData>();
 
-            var camEffect = Instantiate(effectData);
-
-            // Change the target to Emitter so it's not redirected again
-            camEffect.Target = JuiceEffectTarget.Emitter;
-            cameraEffects.Add(camEffect);
+            cameraEffects.Add(effectData);
         }
 
         private void RemoveExistingDuplicateRunners(JuiceEffectData effectData)
@@ -194,7 +192,7 @@ namespace JuiceVFX
 
                 if (camPlayer != null && camPlayer != this)
                 {
-                    camPlayer.Play(cameraEffects, contactPoint, rotation);
+                    camPlayer.Play(cameraEffects, true, contactPoint, rotation);
                 }
             }
         }
