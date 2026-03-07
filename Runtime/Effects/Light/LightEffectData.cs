@@ -67,7 +67,7 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _data.Duration);
             if (_data.Duration <= 0) t = 1f;
 
-            float intensity = _data.IntensityCurve.Evaluate(t);
+            float intensity = _data.IntensityCurve.Evaluate(t) * Context.Multiplier;
             _lightComp.intensity = intensity;
 
             if (t >= 1f)

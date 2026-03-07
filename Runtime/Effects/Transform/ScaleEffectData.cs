@@ -49,9 +49,9 @@ namespace JuiceVFX
             // If duration is 0, we assume instant or one-shot, but for curves we need time.
             if (_data.Duration <= 0) t = 1f;
 
-            float scaleX = _data.ScaleCurveX.Evaluate(t);
-            float scaleY = _data.ScaleCurveY.Evaluate(t);
-            float scaleZ = _data.ScaleCurveZ.Evaluate(t);
+            float scaleX = Mathf.LerpUnclamped(1f, _data.ScaleCurveX.Evaluate(t), Context.Multiplier);
+            float scaleY = Mathf.LerpUnclamped(1f, _data.ScaleCurveY.Evaluate(t), Context.Multiplier);
+            float scaleZ = Mathf.LerpUnclamped(1f, _data.ScaleCurveZ.Evaluate(t), Context.Multiplier);
 
             _target.localScale = new Vector3(_initialScale.x * scaleX, _initialScale.y * scaleY, _initialScale.z * scaleZ);
 

@@ -16,7 +16,8 @@ namespace JuiceVFX
         /// <param name="isCameraTarget">True if the play is addressed to a camera.</param>
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
-        void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null);
+        /// <param name="multiplier">Multiplier scaling intensity across supporting effects.</param>
+        void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f);
 
         /// <summary>
         /// Plays a collection of effects directly.
@@ -25,7 +26,8 @@ namespace JuiceVFX
         /// <param name="isCameraTarget">True if the play is addressed to a camera.</param>
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
-        void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null);
+        /// <param name="multiplier">Multiplier scaling intensity across supporting effects.</param>
+        void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f);
 
         public void StopAll();
     }

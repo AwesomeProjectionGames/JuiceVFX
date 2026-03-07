@@ -30,7 +30,7 @@ namespace JuiceVFX
         }
 
         public override void OnStart(JuicePlayer player)
-        { 
+        {
             _seed = _baseData.Randomize ? Random.Range(0f, 100f) : 0f;
             OnSetup(player);
         }
@@ -46,7 +46,7 @@ namespace JuiceVFX
             if (_baseData.Duration <= 0) t = 1f;
 
             float damping = _baseData.DampingCurve.Evaluate(t);
-            
+
             // Perlin noise based shake
             float noiseX = (Mathf.PerlinNoise(_seed, Time.time * _baseData.Frequency) - 0.5f) * 2f;
             float noiseY = (Mathf.PerlinNoise(_seed + 1, Time.time * _baseData.Frequency) - 0.5f) * 2f;
@@ -56,7 +56,7 @@ namespace JuiceVFX
                 noiseX * _baseData.PositionStrength.x,
                 noiseY * _baseData.PositionStrength.y,
                 noiseZ * _baseData.PositionStrength.z
-            ) * damping;
+            ) * damping * Context.Multiplier;
 
             ApplyShake(posOffset, damping);
 

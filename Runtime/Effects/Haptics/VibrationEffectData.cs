@@ -41,8 +41,8 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _data.Duration);
             if (_data.Duration <= 0) t = 1f;
 
-            float low = _data.LowFrequencyMotor.Evaluate(t);
-            float high = _data.HighFrequencyMotor.Evaluate(t);
+            float low = _data.LowFrequencyMotor.Evaluate(t) * Context.Multiplier;
+            float high = _data.HighFrequencyMotor.Evaluate(t) * Context.Multiplier;
 
             foreach (var gamepad in _gamepads)
             {

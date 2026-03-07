@@ -61,7 +61,7 @@ namespace JuiceVFX.Integrations.URP
             // 2. Create a temporary volume GameObject
             _volumeGameObject = new GameObject($"JuiceURPVolume_{typeof(T).Name}_{_data.name}");
             _volumeGameObject.transform.SetParent(player.transform);
-            
+
             _volume = _volumeGameObject.AddComponent<Volume>();
             _volume.isGlobal = true;
             _volume.priority = 100; // High priority to override existing
@@ -70,9 +70,9 @@ namespace JuiceVFX.Integrations.URP
             // 3. Create a profile and add our specific component to override
             _volume.profile = ScriptableObject.CreateInstance<VolumeProfile>();
             _volume.profile.name = $"JuiceTempProfile_{typeof(T).Name}";
-            
+
             _volumeComponent = _volume.profile.Add<T>();
-            
+
             // Intentionally don't override everything by default, let subclass decide what to override active state for
             InitializeComponentState();
 
@@ -97,8 +97,8 @@ namespace JuiceVFX.Integrations.URP
         private void UpdateEffectValue(float rawProgress)
         {
             if (_volumeComponent == null) return;
-            
-            float intensity = _data.IntensityCurve.Evaluate(rawProgress) * _data.Multiplier;
+
+            float intensity = _data.IntensityCurve.Evaluate(rawProgress) * _data.Multiplier * Context.Multiplier;
             ApplyEffect(intensity);
         }
 

@@ -96,7 +96,7 @@ namespace JuiceVFX.Integrations.URP
         {
             if (_targetVolume == null) return;
 
-            float weight = _data.WeightCurve.Evaluate(rawProgress) * _data.WeightMultiplier;
+            float weight = _data.WeightCurve.Evaluate(rawProgress) * _data.WeightMultiplier * Context.Multiplier;
             _targetVolume.weight = weight;
         }
 

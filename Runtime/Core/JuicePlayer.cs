@@ -89,10 +89,11 @@ namespace JuiceVFX
         /// <param name="isCameraTarget">True if the play is addressed to a camera.</param>
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
-        public void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null)
+        /// <param name="multiplier">Multiplier scaling intensity across supporting effects.</param>
+        public void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f)
         {
             if (feedback == null) return;
-            Play(feedback.Effects, isCameraTarget, contactPoint, rotation);
+            Play(feedback.Effects, isCameraTarget, contactPoint, rotation, multiplier);
         }
 
         /// <summary>
@@ -102,11 +103,12 @@ namespace JuiceVFX
         /// <param name="isCameraTarget">True if the play is addressed to a camera.</param>
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
-        public void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null)
+        /// <param name="multiplier">Multiplier scaling intensity across supporting effects.</param>
+        public void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f)
         {
             if (effects == null) return;
 
-            var context = CreateFeedbackContext(contactPoint, rotation);
+            var context = CreateFeedbackContext(contactPoint, rotation, multiplier);
             List<JuiceEffectData>? cameraEffects = null;
 
             foreach (var effectData in effects)
@@ -123,7 +125,7 @@ namespace JuiceVFX
                 StartNewEffectRunner(effectData, context);
             }
 
-            PlayCameraEffects(cameraEffects, contactPoint, rotation);
+            PlayCameraEffects(cameraEffects, contactPoint, rotation, multiplier);
         }
 
         /// <summary>
@@ -138,7 +140,7 @@ namespace JuiceVFX
             activeRunners.Clear();
         }
 
-        private JuiceFeedbackContext CreateFeedbackContext(Vector3? contactPoint, Quaternion? rotation)
+        private JuiceFeedbackContext CreateFeedbackContext(Vector3? contactPoint, Quaternion? rotation, float multiplier)
         {
             var gamepads = (TargetGamepads != null && TargetGamepads.Length > 0)
                 ? TargetGamepads
@@ -146,7 +148,7 @@ namespace JuiceVFX
 
             var root = TargetRoot != null ? TargetRoot : transform;
 
-            return new JuiceFeedbackContext(contactPoint, rotation, gamepads, TargetRenderers, root);
+            return new JuiceFeedbackContext(contactPoint, rotation, gamepads, TargetRenderers, root, multiplier);
         }
 
         private void RedirectEffectToCamera(JuiceEffectData effectData, ref List<JuiceEffectData>? cameraEffects)
@@ -179,7 +181,7 @@ namespace JuiceVFX
             activeRunners.Add(runner);
         }
 
-        private void PlayCameraEffects(List<JuiceEffectData>? cameraEffects, Vector3? contactPoint, Quaternion? rotation)
+        private void PlayCameraEffects(List<JuiceEffectData>? cameraEffects, Vector3? contactPoint, Quaternion? rotation, float multiplier)
         {
             if (cameraEffects != null && cameraEffects.Count > 0)
             {
@@ -192,7 +194,7 @@ namespace JuiceVFX
 
                 if (camPlayer != null && camPlayer != this)
                 {
-                    camPlayer.Play(cameraEffects, true, contactPoint, rotation);
+                    camPlayer.Play(cameraEffects, true, contactPoint, rotation, multiplier);
                 }
             }
         }
