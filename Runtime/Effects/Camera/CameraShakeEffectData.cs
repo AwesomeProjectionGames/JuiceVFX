@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewCameraShake", menuName = "AwesomeProjection/JuiceVFX/Effects/Camera Shake")]
+    [CreateAssetMenu(fileName = "NewCameraShake", menuName = "AwesomeProjection/JuiceVFX/Effects/Camera/Camera Shake")]
     public class CameraShakeEffectData : BaseShakeEffectData
     {
         public override JuiceEffectTarget Target => JuiceEffectTarget.Camera;

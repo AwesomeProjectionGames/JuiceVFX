@@ -17,7 +17,7 @@ namespace JuiceVFX
         X, Y, Z
     }
 
-    [CreateAssetMenu(fileName = "NewSquashStretch", menuName = "AwesomeProjection/JuiceVFX/Effects/Squash and Stretch")]
+    [CreateAssetMenu(fileName = "NewSquashStretch", menuName = "AwesomeProjection/JuiceVFX/Effects/Transform/Squash and Stretch")]
     public class SquashStretchEffectData : JuiceEffectData
     {
         [Tooltip("The main axis to apply the scale curve on.")]

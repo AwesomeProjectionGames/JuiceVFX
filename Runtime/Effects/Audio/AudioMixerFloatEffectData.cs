@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewAudioMixerFloatEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Audio Mixer Float")]
+    [CreateAssetMenu(fileName = "NewAudioMixerFloatEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Audio/Audio Mixer Float")]
     public class AudioMixerFloatEffectData : JuiceEffectData
     {
         [Header("Audio Mixer Definition")]

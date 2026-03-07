@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewObjectShake", menuName = "AwesomeProjection/JuiceVFX/Effects/Object Shake")]
+    [CreateAssetMenu(fileName = "NewObjectShake", menuName = "AwesomeProjection/JuiceVFX/Effects/Transform/Object Shake")]
     public class ObjectShakeEffectData : BaseShakeEffectData
     {
         [Tooltip("Maximum offset for rotation shake (degrees).")]

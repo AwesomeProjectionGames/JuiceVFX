@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewScaleEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Scale")]
+    [CreateAssetMenu(fileName = "NewScaleEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Transform/Scale")]
     public class ScaleEffectData : JuiceEffectData
     {
         [Tooltip("Curve for scale multiplier over time.")]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewCameraZoomEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Camera Zoom")]
+    [CreateAssetMenu(fileName = "NewCameraZoomEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Camera/Camera Zoom")]
     public class CameraZoomEffectData : JuiceEffectData
     {
         public override JuiceEffectTarget Target => JuiceEffectTarget.Camera;

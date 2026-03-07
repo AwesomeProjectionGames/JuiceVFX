@@ -2,18 +2,18 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewInstantiateEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Instantiate")]
+    [CreateAssetMenu(fileName = "NewInstantiateEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/GameObject/Instantiate")]
     public class InstantiateEffectData : JuiceEffectData
     {
         [Tooltip("Prefab to instantiate.")]
         public GameObject Prefab;
-        
+
         [Tooltip("Local position offset.")]
         public Vector3 LocalOffset;
-        
+
         [Tooltip("What target should this effect apply to?")]
         public JuiceTargetType TargetType = JuiceTargetType.Target;
-        
+
         [Tooltip("Parent the instantiated object to the resolved Target? (Overrides ParentToPlayer)")]
         public bool AttachToTarget = false;
 
@@ -24,7 +24,7 @@ namespace JuiceVFX
         {
             return new InstantiateEffectRunner(this);
         }
-        
+
         public override bool IsSameEffect(JuiceEffectData other)
         {
             return false; // This effect can run in parallel with other instances of itself without caching issues, so we return false to allow multiple instances to run simultaneously.
@@ -58,10 +58,10 @@ namespace JuiceVFX
             Quaternion spawnRot = baseRot; // User might want to offset rotation too, but currently only position offset in data
 
             _instance = Object.Instantiate(_data.Prefab, spawnPos, spawnRot);
-            
+
             if (_data.AttachToTarget)
             {
-                 _instance.transform.SetParent(player.transform, true);
+                _instance.transform.SetParent(player.transform, true);
             }
         }
 

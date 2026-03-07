@@ -13,7 +13,7 @@ namespace JuiceVFX
         FarClipPlane
     }
 
-    [CreateAssetMenu(fileName = "NewCameraPropertyEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Camera Property")]
+    [CreateAssetMenu(fileName = "NewCameraPropertyEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Camera/Camera Property")]
     public class CameraPropertyEffectData : JuiceEffectData
     {
         public override JuiceEffectTarget Target => JuiceEffectTarget.Camera;

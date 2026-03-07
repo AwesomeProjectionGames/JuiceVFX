@@ -13,7 +13,7 @@ namespace JuiceVFX
         Bool
     }
 
-    [CreateAssetMenu(fileName = "NewMaterialPropertyEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Material Property")]
+    [CreateAssetMenu(fileName = "NewMaterialPropertyEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Material/Material Property")]
     public class MaterialPropertyEffectData : JuiceEffectData
     {
         [Header("Property Definition")]

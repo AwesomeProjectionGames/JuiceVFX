@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewFreezeFrame", menuName = "AwesomeProjection/JuiceVFX/Effects/Freeze Frame")]
+    [CreateAssetMenu(fileName = "NewFreezeFrame", menuName = "AwesomeProjection/JuiceVFX/Effects/Time/Freeze Frame")]
     public class FreezeFrameEffectData : JuiceEffectData
     {
         [Tooltip("Time scale during the freeze.")]
@@ -42,9 +42,9 @@ namespace JuiceVFX
 
             if (_data.Duration > 0)
             {
-                 // Blending back
-                 float recoverT = _data.RecoveryCurve.Evaluate(t);
-                 Time.timeScale = Mathf.Lerp(_data.TimeScale, 1f, recoverT); // Assuming 1f is normal
+                // Blending back
+                float recoverT = _data.RecoveryCurve.Evaluate(t);
+                Time.timeScale = Mathf.Lerp(_data.TimeScale, 1f, recoverT); // Assuming 1f is normal
             }
 
             if (t >= 1f)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewObjectBlinkEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Object Blink")]
+    [CreateAssetMenu(fileName = "NewObjectBlinkEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/GameObject/Object Blink")]
     public class ObjectBlinkEffectData : JuiceEffectData
     {
         [Tooltip("Number of times the object blinks (toggles active state) during the duration.")]
@@ -56,7 +56,7 @@ namespace JuiceVFX
 
             float blinkDuration = _data.Duration / _data.BlinkCount;
             float timeInCurrentBlink = _timer % blinkDuration;
-            
+
             bool shouldBeEnabled;
             if (_originalActiveState)
             {

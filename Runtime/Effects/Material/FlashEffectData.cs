@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JuiceVFX
 {
-    [CreateAssetMenu(fileName = "NewFlashEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Flash")]
+    [CreateAssetMenu(fileName = "NewFlashEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Material/Flash")]
     public class FlashEffectData : JuiceEffectData
     {
         [Tooltip("The material to apply during the flash.")]
