@@ -13,11 +13,11 @@ namespace JuiceVFX
     public class JuicePlayer : MonoBehaviour, IJuicePlayer
     {
         [Header("Targeting Settings")]
-        [SerializeField] private Gamepad[] targetGamepads = System.Array.Empty<Gamepad>();
-        [SerializeField] private bool takeCurrentGamepadAsDefault = true;
-        [SerializeField] private Renderer[] targetRenderers = System.Array.Empty<Renderer>();
-        [SerializeField] private Transform? targetRoot;
-        [SerializeField] private JuicePlayer? cameraPlayer;
+        public Gamepad[] targetGamepads = System.Array.Empty<Gamepad>();
+        public bool takeCurrentGamepadAsDefault = true;
+        public Renderer[] targetRenderers = System.Array.Empty<Renderer>();
+        public Transform? targetRoot;
+        public JuicePlayer? cameraPlayer;
 
         /// <summary>
         /// The specific gamepads targeted by this player.
