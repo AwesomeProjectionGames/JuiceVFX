@@ -14,8 +14,7 @@ namespace JuiceVFX
     /// </summary>
     public abstract class JuiceEffectData : ScriptableObject
     {
-        [Tooltip("Target of the effect.")]
-        public JuiceEffectTarget Target = JuiceEffectTarget.Emitter;
+        public virtual JuiceEffectTarget Target => JuiceEffectTarget.Emitter;
 
         [Tooltip("Duration of the effect in seconds.")]
         public float Duration = 0.5f;
