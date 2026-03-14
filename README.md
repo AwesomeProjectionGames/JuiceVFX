@@ -24,3 +24,15 @@ A powerful, customizable, and artist-friendly system for adding "juice" (game fe
 
 - **Unity Input System**: Used for gamepad vibration.
 - **URP (Optional)**: For Post Processing effects.
+- **DOTween (Optional)**: For DOTween-based easing on effects.
+
+## Integrations
+
+Optional third-party integrations are gated behind scripting define symbols. Add the relevant symbol in **Edit → Project Settings → Player → Scripting Define Symbols** to enable the corresponding integration.
+
+| Integration | Scripting Define Symbol | Effects unlocked |
+|---|---|---|
+| Universal Render Pipeline | `URP` | Bloom, Chromatic Aberration, Color Adjustments, Depth of Field, Lens Distortion, Motion Blur, Panini Projection, Vignette, White Balance, Global PP Volume Auto Blend |
+| DOTween | `DOTWEEN` | DOTween-based easing overrides for all existing effects (Shake, Scale, Squash & Stretch, Camera, Light, Material, Audio Mixer, Haptics, Freeze Frame) |
+
+> **Note**: Without the corresponding scripting define symbol, the integration files are fully excluded from compilation, so missing the package will never cause compilation errors.

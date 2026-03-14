@@ -1,7 +1,8 @@
+#nullable enable
+#if URP
+
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-
-#nullable enable
 
 namespace JuiceVFX.Integrations.URP
 {
@@ -93,3 +94,4 @@ namespace JuiceVFX.Integrations.URP
         }
     }
 }
+#endif
