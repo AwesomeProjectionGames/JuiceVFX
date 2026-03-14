@@ -12,6 +12,9 @@ namespace JuiceVFX
         [Tooltip("High Frequency Motor speed curve.")]
         public AnimationCurve HighFrequencyMotor = AnimationCurve.Linear(0, 0.5f, 1, 0);
 
+        public virtual float EvaluateLowFrequencyMotor(float time) => LowFrequencyMotor.Evaluate(time);
+        public virtual float EvaluateHighFrequencyMotor(float time) => HighFrequencyMotor.Evaluate(time);
+
         public override JuiceEffectRunner CreateRunner()
         {
             return new VibrationEffectRunner(this);
@@ -41,8 +44,8 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _data.Duration);
             if (_data.Duration <= 0) t = 1f;
 
-            float low = _data.LowFrequencyMotor.Evaluate(t) * Context.Multiplier;
-            float high = _data.HighFrequencyMotor.Evaluate(t) * Context.Multiplier;
+            float low = _data.EvaluateLowFrequencyMotor(t) * Context.Multiplier;
+            float high = _data.EvaluateHighFrequencyMotor(t) * Context.Multiplier;
 
             foreach (var gamepad in _gamepads)
             {

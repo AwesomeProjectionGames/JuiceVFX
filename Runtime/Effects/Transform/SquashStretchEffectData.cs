@@ -32,6 +32,11 @@ namespace JuiceVFX
         [Tooltip("Return to original scale after effect finishes?")]
         public bool ResetOnComplete = true;
 
+        public virtual float EvaluateScaleCurve(float time)
+        {
+            return ScaleCurve.Evaluate(time);
+        }
+
         public override JuiceEffectRunner CreateRunner()
         {
             return new SquashStretchEffectRunner(this);
@@ -68,7 +73,7 @@ namespace JuiceVFX
             // If duration is 0, we assume instant or one-shot, but for curves we need time.
             if (_data.Duration <= 0) t = 1f;
 
-            float curveVal = _data.ScaleCurve.Evaluate(t);
+            float curveVal = _data.EvaluateScaleCurve(t);
             float mainScale = Mathf.LerpUnclamped(1f, curveVal, Context.Multiplier);
             // Avoid division by zero
             if (mainScale <= 0.0001f) mainScale = 0.0001f;

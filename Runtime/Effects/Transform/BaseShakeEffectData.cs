@@ -17,6 +17,8 @@ namespace JuiceVFX
 
         [Tooltip("Random seed for noise.")]
         public bool Randomize = true;
+
+        public virtual float EvaluateDampingCurve(float time) => DampingCurve.Evaluate(time);
     }
 
     public abstract class BaseShakeEffectRunner<T> : JuiceEffectRunner where T : BaseShakeEffectData
@@ -45,7 +47,7 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _baseData.Duration);
             if (_baseData.Duration <= 0) t = 1f;
 
-            float damping = _baseData.DampingCurve.Evaluate(t);
+            float damping = _baseData.EvaluateDampingCurve(t);
 
             // Perlin noise based shake
             float noiseX = (Mathf.PerlinNoise(_seed, Time.time * _baseData.Frequency) - 0.5f) * 2f;

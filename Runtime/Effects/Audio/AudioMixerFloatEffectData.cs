@@ -22,6 +22,8 @@ namespace JuiceVFX
         [Tooltip("Intensity curve of the effect over time. Acts as a multiplier for the Target Value.")]
         public AnimationCurve IntensityCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
+        public virtual float EvaluateIntensityCurve(float time) => IntensityCurve.Evaluate(time);
+
         [Tooltip("If true, the effect value is added to the base value instead of replacing it.")]
         public bool IsRelative = false;
 
@@ -68,7 +70,7 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _data.Duration);
             if (_data.Duration <= 0) t = 1f;
 
-            float intensity = _data.IntensityCurve.Evaluate(t) * Context.Multiplier;
+            float intensity = _data.EvaluateIntensityCurve(t) * Context.Multiplier;
             ApplyValue(intensity);
 
             if (t >= 1f)
@@ -87,7 +89,7 @@ namespace JuiceVFX
             }
             else
             {
-                float finalIntensity = _data.IntensityCurve.Evaluate(1f);
+                float finalIntensity = _data.EvaluateIntensityCurve(1f);
                 ApplyValue(finalIntensity);
             }
         }

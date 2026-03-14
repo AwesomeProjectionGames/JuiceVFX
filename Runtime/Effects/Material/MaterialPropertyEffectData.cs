@@ -53,6 +53,8 @@ namespace JuiceVFX
         [Tooltip("If true, the material property is strictly restored to its initial value when the effect stops.")]
         public bool ResetInitialValue = false;
 
+        public virtual float EvaluateIntensityCurve(float time) => IntensityCurve.Evaluate(time);
+
         public override JuiceEffectRunner CreateRunner()
         {
             return new MaterialPropertyEffectRunner(this);
@@ -128,7 +130,7 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _data.Duration);
             if (_data.Duration <= 0) t = 1f;
 
-            float intensity = _data.IntensityCurve.Evaluate(t) * Context.Multiplier;
+            float intensity = _data.EvaluateIntensityCurve(t) * Context.Multiplier;
 
             ApplyProperty(intensity);
 
@@ -161,7 +163,7 @@ namespace JuiceVFX
             }
             else
             {
-                float finalIntensity = _data.IntensityCurve.Evaluate(1f);
+                float finalIntensity = _data.EvaluateIntensityCurve(1f);
                 ApplyProperty(finalIntensity);
             }
         }

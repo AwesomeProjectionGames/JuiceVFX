@@ -16,6 +16,8 @@ namespace JuiceVFX
         [Tooltip("Intensity curve of the effect over time. 0 means no zoom (1x), 1 means TargetZoomMultiplier.")]
         public AnimationCurve IntensityCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
+        public virtual float EvaluateIntensityCurve(float time) => IntensityCurve.Evaluate(time);
+
         [Tooltip("If true, the camera property is strictly restored to its initial value when the effect stops.")]
         public bool ResetInitialValue = true;
 
@@ -66,7 +68,7 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _data.Duration);
             if (_data.Duration <= 0) t = 1f;
 
-            float intensity = _data.IntensityCurve.Evaluate(t) * Context.Multiplier;
+            float intensity = _data.EvaluateIntensityCurve(t) * Context.Multiplier;
             ApplyValue(intensity);
 
             if (t >= 1f && !_data.HoldUntilStopped)
@@ -85,7 +87,7 @@ namespace JuiceVFX
             }
             else
             {
-                float finalIntensity = _data.IntensityCurve.Evaluate(1f);
+                float finalIntensity = _data.EvaluateIntensityCurve(1f);
                 ApplyValue(finalIntensity);
             }
         }

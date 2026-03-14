@@ -20,6 +20,8 @@ namespace JuiceVFX
         [Tooltip("Local offset for the light.")]
         public Vector3 LocalOffset;
 
+        public virtual float EvaluateIntensityCurve(float time) => IntensityCurve.Evaluate(time);
+
         public override JuiceEffectRunner CreateRunner()
         {
             return new LightEffectRunner(this);
@@ -67,7 +69,7 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / _data.Duration);
             if (_data.Duration <= 0) t = 1f;
 
-            float intensity = _data.IntensityCurve.Evaluate(t) * Context.Multiplier;
+            float intensity = _data.EvaluateIntensityCurve(t) * Context.Multiplier;
             _lightComp.intensity = intensity;
 
             if (t >= 1f)

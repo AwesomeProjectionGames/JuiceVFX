@@ -11,6 +11,8 @@ namespace JuiceVFX
         [Tooltip("Curve to blend back to normal time scale (optional).")]
         public AnimationCurve RecoveryCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
+        public virtual float EvaluateRecoveryCurve(float time) => RecoveryCurve.Evaluate(time);
+
         public override JuiceEffectRunner CreateRunner()
         {
             return new FreezeFrameEffectRunner(this);
@@ -43,7 +45,7 @@ namespace JuiceVFX
             if (_data.Duration > 0)
             {
                 // Blending back
-                float recoverT = _data.RecoveryCurve.Evaluate(t);
+                float recoverT = _data.EvaluateRecoveryCurve(t);
                 Time.timeScale = Mathf.Lerp(_data.TimeScale, 1f, recoverT); // Assuming 1f is normal
             }
 
