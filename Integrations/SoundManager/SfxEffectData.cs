@@ -39,11 +39,11 @@ namespace JuiceVFX.Integrations.SoundManager
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             // Spawn a temporary audio object
             _audioObj = new GameObject("JuiceSFX_" + (_data.Clip ? _data.Clip.name : "Null"));
-            _audioObj.transform.position = player.transform.position; // 3D sound at location
+            _audioObj.transform.position = Context.RootTransform.position; // 3D sound at location
             
             _source = _audioObj.AddComponent<AudioSource>();
             _source.clip = _data.Clip;

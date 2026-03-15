@@ -24,8 +24,9 @@ namespace JuiceVFX
         {
         }
 
-        protected override void OnSetup(JuicePlayer player)
+        protected override void OnSetup(IJuicePlayer player)
         {
+            //TODO: Implement better
             _camera = Context.RootTransform != null ? Context.RootTransform.GetComponentInChildren<Camera>() : null;
             if (_camera == null)
             {

@@ -87,7 +87,7 @@ namespace JuiceVFX
             _propBlock = new MaterialPropertyBlock();
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             _renderers = Context.Renderers;
             _propID = Shader.PropertyToID(_data.PropertyName);

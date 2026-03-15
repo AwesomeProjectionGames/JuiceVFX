@@ -44,7 +44,7 @@ namespace JuiceVFX
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             _lightObj = new GameObject("JuiceLight");
             if (_data.TargetType == JuiceTargetType.ContactPoint && Context.ContactPoint != null)
@@ -53,9 +53,9 @@ namespace JuiceVFX
             }
             else
             {
-                _lightObj.transform.position = player.transform.position + player.transform.TransformDirection(_data.LocalOffset);
+                _lightObj.transform.position = Context.RootTransform.position + Context.RootTransform.TransformDirection(_data.LocalOffset);
             }
-            _lightObj.transform.SetParent(player.transform, true);
+            _lightObj.transform.SetParent(Context.RootTransform, true);
 
             _lightComp = _lightObj.AddComponent<Light>();
             _lightComp.type = LightType.Point;

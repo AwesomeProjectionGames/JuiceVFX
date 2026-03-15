@@ -63,8 +63,9 @@ namespace JuiceVFX
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
+            //TODO : Implement better
             _camera = Context.RootTransform != null ? Context.RootTransform.GetComponentInChildren<Camera>() : null;
             if (_camera == null)
             {

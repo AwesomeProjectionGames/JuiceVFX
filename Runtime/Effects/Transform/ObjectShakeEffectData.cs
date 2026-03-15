@@ -26,9 +26,9 @@ namespace JuiceVFX
         {
         }
 
-        protected override void OnSetup(JuicePlayer player)
+        protected override void OnSetup(IJuicePlayer player)
         {
-            _target = player.transform;
+            _target = Context.RootTransform;
             _initialPos = _target.localPosition;
             _initialRot = _target.localRotation;
         }

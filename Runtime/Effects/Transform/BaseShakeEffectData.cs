@@ -31,13 +31,13 @@ namespace JuiceVFX
             _baseData = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             _seed = _baseData.Randomize ? Random.Range(0f, 100f) : 0f;
             OnSetup(player);
         }
 
-        protected abstract void OnSetup(JuicePlayer player);
+        protected abstract void OnSetup(IJuicePlayer player);
 
         public override void OnUpdate(float deltaTime)
         {
@@ -58,7 +58,7 @@ namespace JuiceVFX
                 noiseX * _baseData.PositionStrength.x,
                 noiseY * _baseData.PositionStrength.y,
                 noiseZ * _baseData.PositionStrength.z
-            ) * damping * Context.Multiplier;
+            ) * (damping * Context.Multiplier);
 
             ApplyShake(posOffset, damping);
 

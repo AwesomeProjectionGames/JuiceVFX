@@ -11,14 +11,14 @@ namespace JuiceVFX
     public abstract class JuiceEffectRunner
     {
         public JuiceEffectData EffectData { get; internal set; } = null!;
-        protected JuicePlayer Player = null!;
+        protected IJuicePlayer Player = null!;
         protected JuiceFeedbackContext Context;
         protected float _timer;
         protected float _delayTimer;
         public bool IsFinished { get; protected set; }
         public bool IsPlaying { get; protected set; }
 
-        public abstract void OnStart(JuicePlayer player);
+        public abstract void OnStart(IJuicePlayer player);
         public abstract void OnUpdate(float deltaTime);
         public abstract void OnStop();
 
@@ -26,7 +26,7 @@ namespace JuiceVFX
         /// Initializes the runner with the player owner.
         /// </summary>
         /// <param name="player">The JuicePlayer that triggered this effect.</param>
-        public void Initialize(JuicePlayer player, JuiceFeedbackContext context)
+        public void Initialize(IJuicePlayer player, JuiceFeedbackContext context)
         {
             Player = player;
             Context = context;
@@ -97,10 +97,10 @@ namespace JuiceVFX
             switch (type)
             {
                 case JuiceTargetType.ContactPoint:
-                    return Context.ContactPoint ?? Player.transform.position;
+                    return Context.ContactPoint ?? Context.RootTransform.position;
                 case JuiceTargetType.Target:
                 default:
-                    return Player.transform.position;
+                    return Context.RootTransform.position;
             }
         }
 
@@ -109,10 +109,10 @@ namespace JuiceVFX
             switch (type)
             {
                 case JuiceTargetType.ContactPoint:
-                    return Context.Rotation ?? Player.transform.rotation;
+                    return Context.Rotation ?? Context.RootTransform.rotation;
                 case JuiceTargetType.Target:
                 default:
-                    return Player.transform.rotation;
+                    return Context.RootTransform.rotation;
             }
         }
     }

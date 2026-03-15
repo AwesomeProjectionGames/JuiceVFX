@@ -33,7 +33,7 @@ namespace JuiceVFX
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             _rootTransform = Context.RootTransform;
             if (_rootTransform != null)

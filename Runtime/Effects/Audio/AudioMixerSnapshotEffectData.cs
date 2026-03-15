@@ -39,7 +39,7 @@ namespace JuiceVFX
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             if (_data.Snapshot != null)
             {

@@ -41,7 +41,7 @@ namespace JuiceVFX
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             if (_data.Prefab == null)
             {
@@ -61,7 +61,7 @@ namespace JuiceVFX
 
             if (_data.AttachToTarget)
             {
-                _instance.transform.SetParent(player.transform, true);
+                _instance.transform.SetParent(Context.RootTransform, true);
             }
         }
 
