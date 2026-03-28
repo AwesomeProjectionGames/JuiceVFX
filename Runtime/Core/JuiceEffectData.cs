@@ -5,6 +5,7 @@ namespace JuiceVFX
     public enum JuiceEffectTarget
     {
         Emitter,
+        Anywhere,
         Camera
     }
 

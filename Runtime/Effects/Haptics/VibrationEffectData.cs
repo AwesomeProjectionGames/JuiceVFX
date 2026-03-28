@@ -6,6 +6,8 @@ namespace JuiceVFX
     [CreateAssetMenu(fileName = "NewVibrationEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/Haptics/Vibration")]
     public class VibrationEffectData : JuiceEffectData
     {
+        public override JuiceEffectTarget Target => JuiceEffectTarget.Anywhere;
+
         [Tooltip("Low Frequency Motor speed curve.")]
         public AnimationCurve LowFrequencyMotor = AnimationCurve.Linear(0, 0.5f, 1, 0);
 
