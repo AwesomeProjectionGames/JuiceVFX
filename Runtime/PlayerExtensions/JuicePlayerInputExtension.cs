@@ -43,7 +43,7 @@ namespace JuiceVFX
             if (playerInput == null || _juicePlayer == null) return;
 
             // Find all Gamepads currently associated with this PlayerInput
-            _juicePlayer.TargetGamepads = playerInput.devices
+            _juicePlayer.targetGamepads = playerInput.devices
                 .OfType<Gamepad>()
                 .ToArray();
         }
