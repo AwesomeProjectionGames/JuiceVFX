@@ -5,7 +5,7 @@ namespace JuiceVFX
     public class JuiceTriggerUnityEvent : MonoBehaviour
     {
         [Tooltip("The JuicePlayer to control.")]
-        public JuicePlayer targetPlayer;
+        public AbstractJuicePlayer targetPlayer;
 
         [Tooltip("The feedback to play when triggered.")]
         public JuiceFeedback feedback;
