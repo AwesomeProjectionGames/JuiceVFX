@@ -10,9 +10,12 @@ namespace JuiceVFX
         [Tooltip("The material to apply during the flash.")]
         public Material? FlashMaterial;
 
-        [Tooltip("Number of blinks per second. The total number of blinks will be BlinkCount * Duration.")]
+        [Tooltip("Value used for blinking. Interpretation depends on UseBlinkFrequency.")]
         [Min(0.1f)]
         public float BlinkCount = 5f;
+
+        [Tooltip("If true, BlinkCount is blinks per second. If false, BlinkCount is the total number of blinks over the duration.")]
+        public bool UseBlinkFrequency = true;
 
         public override JuiceEffectRunner CreateRunner()
         {
@@ -63,7 +66,7 @@ namespace JuiceVFX
             _timer += deltaTime;
             float t = Mathf.Clamp01(_timer / Duration);
 
-            float blinkDuration = 1f / _data.BlinkCount;
+            float blinkDuration = _data.UseBlinkFrequency ? (1f / _data.BlinkCount) : (Duration / _data.BlinkCount);
             float phaseDuration = blinkDuration / 2f;
 
             int currentPhase = Mathf.FloorToInt(_timer / phaseDuration);
