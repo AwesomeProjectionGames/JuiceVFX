@@ -43,7 +43,7 @@ namespace JuiceVFX
         {
             if (_data.Snapshot != null)
             {
-                float transitionDuration = _data.UseEffectDuration ? _data.Duration : _data.CustomTransitionDuration;
+                float transitionDuration = _data.UseEffectDuration ? Duration : _data.CustomTransitionDuration;
                 _data.Snapshot.TransitionTo(transitionDuration);
             }
         }
@@ -51,8 +51,8 @@ namespace JuiceVFX
         public override void OnUpdate(float deltaTime)
         {
             _timer += deltaTime;
-            float t = Mathf.Clamp01(_timer / _data.Duration);
-            if (_data.Duration <= 0) t = 1f;
+            float t = Mathf.Clamp01(_timer / Duration);
+            if (Duration <= 0) t = 1f;
 
             if (t >= 1f)
             {

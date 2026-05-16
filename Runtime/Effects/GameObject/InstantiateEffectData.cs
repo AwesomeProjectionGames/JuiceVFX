@@ -68,7 +68,7 @@ namespace JuiceVFX
         public override void OnUpdate(float deltaTime)
         {
             _timer += deltaTime;
-            if (_timer >= _data.Duration)
+            if (_timer >= Duration)
             {
                 Stop();
             }

@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,17 +52,17 @@ namespace JuiceVFX
         /// <summary>
         /// Plays the specified feedback.
         /// </summary>
-        public void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f)
+        public void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f, float? duration = null)
         {
             if (feedback == null) return;
-            Play(feedback.Effects, isCameraTarget, contactPoint, rotation, multiplier);
+            Play(feedback.Effects, isCameraTarget, contactPoint, rotation, multiplier, duration);
         }
 
         /// <summary>
         /// Plays a collection of effects directly.
         /// </summary>
         public abstract void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false,
-            Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f);
+            Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f, float? duration = null);
 
         /// <summary>
         /// Stops all currently active effect runners.
@@ -89,12 +89,12 @@ namespace JuiceVFX
             }
         }
 
-        protected void StartNewEffectRunner(JuiceEffectData effectData, JuiceFeedbackContext context)
+        protected void StartNewEffectRunner(JuiceEffectData effectData, JuiceFeedbackContext context, float? durationOverride = null)
         {
             var runner = effectData.CreateRunner();
             runner.EffectData = effectData;
             runner.Initialize(this, context);
-            runner.Start(effectData.Delay);
+            runner.Start(effectData.Delay, durationOverride);
             activeRunners.Add(runner);
         }
     }

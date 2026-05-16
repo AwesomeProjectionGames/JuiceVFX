@@ -39,10 +39,10 @@ namespace JuiceVFX
         {
             // We use unscaled time for duration because timeScale might be 0
             _timer += Time.unscaledDeltaTime;
-            float t = Mathf.Clamp01(_timer / _data.Duration);
-            if (_data.Duration <= 0) t = 1f;
+            float t = Mathf.Clamp01(_timer / Duration);
+            if (Duration <= 0) t = 1f;
 
-            if (_data.Duration > 0)
+            if (Duration > 0)
             {
                 // Blending back
                 float recoverT = _data.EvaluateRecoveryCurve(t);

@@ -10,9 +10,9 @@ namespace JuiceVFX
         [Tooltip("The material to apply during the flash.")]
         public Material? FlashMaterial;
 
-        [Tooltip("Number of times it blinks (swaps to the flash material) during the effect duration.")]
-        [Min(1)]
-        public int BlinkCount = 3;
+        [Tooltip("Number of blinks per second. The total number of blinks will be BlinkCount * Duration.")]
+        [Min(0.1f)]
+        public float BlinkCount = 5f;
 
         public override JuiceEffectRunner CreateRunner()
         {
@@ -54,16 +54,16 @@ namespace JuiceVFX
         public override void OnUpdate(float deltaTime)
         {
             // If data is invalid, stop immediately
-            if (_renderers == null || _data.FlashMaterial == null || _data.BlinkCount <= 0 || _data.Duration <= 0)
+            if (_renderers == null || _data.FlashMaterial == null || _data.BlinkCount <= 0 || Duration <= 0)
             {
                 Stop();
                 return;
             }
 
             _timer += deltaTime;
-            float t = Mathf.Clamp01(_timer / _data.Duration);
+            float t = Mathf.Clamp01(_timer / Duration);
 
-            float blinkDuration = _data.Duration / _data.BlinkCount;
+            float blinkDuration = 1f / _data.BlinkCount;
             float phaseDuration = blinkDuration / 2f;
 
             int currentPhase = Mathf.FloorToInt(_timer / phaseDuration);

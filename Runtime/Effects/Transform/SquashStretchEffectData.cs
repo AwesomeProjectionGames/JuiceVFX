@@ -68,10 +68,10 @@ namespace JuiceVFX
             if (_target == null) return;
 
             _timer += deltaTime;
-            float t = Mathf.Clamp01(_timer / _data.Duration);
+            float t = Mathf.Clamp01(_timer / Duration);
 
             // If duration is 0, we assume instant or one-shot, but for curves we need time.
-            if (_data.Duration <= 0) t = 1f;
+            if (Duration <= 0) t = 1f;
 
             float curveVal = _data.EvaluateScaleCurve(t);
             float mainScale = Mathf.LerpUnclamped(1f, curveVal, Context.Multiplier);

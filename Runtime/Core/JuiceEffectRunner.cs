@@ -15,6 +15,7 @@ namespace JuiceVFX
         protected JuiceFeedbackContext Context;
         protected float _timer;
         protected float _delayTimer;
+        public float Duration { get; protected set; }
         public bool IsFinished { get; protected set; }
         public bool IsPlaying { get; protected set; }
 
@@ -32,13 +33,19 @@ namespace JuiceVFX
             Context = context;
             IsFinished = false;
             IsPlaying = false;
+            Duration = EffectData.Duration;
         }
 
         /// <summary>
         /// Starts the effect, handling delay.
         /// </summary>
-        public void Start(float delay)
+        public void Start(float delay, float? durationOverride = null)
         {
+            if (durationOverride.HasValue && EffectData.AllowDurationOverride)
+            {
+                Duration = durationOverride.Value;
+            }
+
             _delayTimer = delay;
             _timer = 0f;
             IsFinished = false;

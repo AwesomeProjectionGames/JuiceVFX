@@ -34,7 +34,7 @@ namespace JuiceVFX
         /// <summary>
         /// Plays a collection of effects directly.
         /// </summary>
-        public override void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f)
+        public override void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f, float? duration = null)
         {
             if (effects == null) return;
 
@@ -52,10 +52,10 @@ namespace JuiceVFX
                 }
 
                 RemoveExistingDuplicateRunners(effectData);
-                StartNewEffectRunner(effectData, context);
+                StartNewEffectRunner(effectData, context, duration);
             }
 
-            PlayCameraEffects(cameraEffects, contactPoint, rotation, multiplier);
+            PlayCameraEffects(cameraEffects, contactPoint, rotation, multiplier, duration);
         }
         
         private void RedirectEffectToCamera(JuiceEffectData effectData, ref List<JuiceEffectData>? cameraEffects)
@@ -75,7 +75,7 @@ namespace JuiceVFX
             return new JuiceFeedbackContext(contactPoint, rotation, gamepads, targetRenderers, root, multiplier);
         }
 
-        protected virtual void PlayCameraEffects(List<JuiceEffectData>? cameraEffects, Vector3? contactPoint, Quaternion? rotation, float multiplier)
+        protected virtual void PlayCameraEffects(List<JuiceEffectData>? cameraEffects, Vector3? contactPoint, Quaternion? rotation, float multiplier, float? duration = null)
         {
             if (cameraEffects != null && cameraEffects.Count > 0)
             {
@@ -88,7 +88,7 @@ namespace JuiceVFX
 
                 if (camPlayer != null && (object)camPlayer != this)
                 {
-                    camPlayer.Play(cameraEffects, true, contactPoint, rotation, multiplier);
+                    camPlayer.Play(cameraEffects, true, contactPoint, rotation, multiplier, duration);
                 }
             }
         }

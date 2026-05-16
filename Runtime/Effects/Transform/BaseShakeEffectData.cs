@@ -44,8 +44,8 @@ namespace JuiceVFX
             if (!IsTargetValid()) return;
 
             _timer += deltaTime;
-            float t = Mathf.Clamp01(_timer / _baseData.Duration);
-            if (_baseData.Duration <= 0) t = 1f;
+            float t = Mathf.Clamp01(_timer / Duration);
+            if (Duration <= 0) t = 1f;
 
             float damping = _baseData.EvaluateDampingCurve(t);
 

@@ -18,7 +18,10 @@ namespace JuiceVFX
         public virtual JuiceEffectTarget Target => JuiceEffectTarget.Emitter;
 
         [Tooltip("Duration of the effect in seconds.")]
-        public float Duration = 0.5f;
+        public float Duration = 1.0f;
+
+        [Tooltip("If true, this effect's duration can be overridden dynamically by the JuicePlayer.")]
+        public bool AllowDurationOverride = true;
 
         [Tooltip("Delay before the effect starts.")]
         public float Delay = 0f;

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace JuiceVFX
@@ -17,7 +17,8 @@ namespace JuiceVFX
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
         /// <param name="multiplier">Multiplier scaling intensity across supporting effects.</param>
-        void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f);
+        /// <param name="duration">Optional duration override for the effects.</param>
+        void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f, float? duration = null);
 
         /// <summary>
         /// Plays a collection of effects directly.
@@ -27,7 +28,8 @@ namespace JuiceVFX
         /// <param name="contactPoint">The contact point in world space (optional).</param>
         /// <param name="rotation">The rotation to apply to the feedback effects (optional).</param>
         /// <param name="multiplier">Multiplier scaling intensity across supporting effects.</param>
-        void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f);
+        /// <param name="duration">Optional duration override for the effects.</param>
+        void Play(IEnumerable<JuiceEffectData> effects, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f, float? duration = null);
 
         public void StopAll();
     }

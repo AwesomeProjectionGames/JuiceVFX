@@ -7,9 +7,9 @@ namespace JuiceVFX
     [CreateAssetMenu(fileName = "NewObjectBlinkEffect", menuName = "AwesomeProjection/JuiceVFX/Effects/GameObject/Object Blink")]
     public class ObjectBlinkEffectData : JuiceEffectData
     {
-        [Tooltip("Number of times the object blinks (toggles active state) during the duration.")]
-        [Min(1)]
-        public int BlinkCount = 3;
+        [Tooltip("Number of blinks per second. The total number of blinks will be BlinkCount * Duration.")]
+        [Min(0.1f)]
+        public float BlinkCount = 5f;
 
         [Tooltip("The percentage of a single blink cycle during which the object is enabled. 0.5 means half enabled, half disabled.")]
         [Range(0f, 1f)]
@@ -45,16 +45,16 @@ namespace JuiceVFX
 
         public override void OnUpdate(float deltaTime)
         {
-            if (_rootTransform == null || _data.BlinkCount <= 0 || _data.Duration <= 0)
+            if (_rootTransform == null || _data.BlinkCount <= 0 || Duration <= 0)
             {
                 Stop();
                 return;
             }
 
             _timer += deltaTime;
-            float t = Mathf.Clamp01(_timer / _data.Duration);
+            float t = Mathf.Clamp01(_timer / Duration);
 
-            float blinkDuration = _data.Duration / _data.BlinkCount;
+            float blinkDuration = 1f / _data.BlinkCount;
             float timeInCurrentBlink = _timer % blinkDuration;
 
             bool shouldBeEnabled;
