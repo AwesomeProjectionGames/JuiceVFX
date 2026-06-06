@@ -47,7 +47,7 @@ namespace JuiceVFX.Integrations.URP
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             _targetVolume = _data.TargetVolume;
 
@@ -63,7 +63,7 @@ namespace JuiceVFX.Integrations.URP
                 }
                 else
                 {
-                    _targetVolume = player.GetComponentInChildren<Volume>();
+                    _targetVolume = Context.RootTransform.GetComponentInChildren<Volume>();
                 }
             }
 

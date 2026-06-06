@@ -53,7 +53,7 @@ namespace JuiceVFX.Integrations.URP
             _data = data;
         }
 
-        public override void OnStart(JuicePlayer player)
+        public override void OnStart(IJuicePlayer player)
         {
             // 1. Capture initial state from the VolumeManager
             var stack = VolumeManager.instance.stack;
@@ -61,7 +61,7 @@ namespace JuiceVFX.Integrations.URP
 
             // 2. Create a temporary volume GameObject
             _volumeGameObject = new GameObject($"JuiceURPVolume_{typeof(T).Name}_{_data.name}");
-            _volumeGameObject.transform.SetParent(player.transform);
+            _volumeGameObject.transform.SetParent(Context.RootTransform);
 
             _volume = _volumeGameObject.AddComponent<Volume>();
             _volume.isGlobal = true;
