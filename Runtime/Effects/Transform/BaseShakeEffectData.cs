@@ -18,6 +18,9 @@ namespace JuiceVFX
         [Tooltip("Random seed for noise.")]
         public bool Randomize = true;
 
+        [Tooltip("If true, this effect's intensity can be overridden dynamically by the JuicePlayer's Multiplier.")]
+        public bool AllowMultiplierOverride = true;
+
         public virtual float EvaluateDampingCurve(float time) => DampingCurve.Evaluate(time);
     }
 
@@ -54,11 +57,13 @@ namespace JuiceVFX
             float noiseY = (Mathf.PerlinNoise(_seed + 1, Time.time * _baseData.Frequency) - 0.5f) * 2f;
             float noiseZ = (Mathf.PerlinNoise(_seed + 2, Time.time * _baseData.Frequency) - 0.5f) * 2f;
 
+            float multiplier = _baseData.AllowMultiplierOverride ? Context.Multiplier : 1f;
+
             Vector3 posOffset = new Vector3(
                 noiseX * _baseData.PositionStrength.x,
                 noiseY * _baseData.PositionStrength.y,
                 noiseZ * _baseData.PositionStrength.z
-            ) * (damping * Context.Multiplier);
+            ) * (damping * multiplier);
 
             ApplyShake(posOffset, damping);
 

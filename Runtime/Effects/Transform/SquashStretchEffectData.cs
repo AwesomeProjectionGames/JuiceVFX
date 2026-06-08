@@ -32,6 +32,9 @@ namespace JuiceVFX
         [Tooltip("Return to original scale after effect finishes?")]
         public bool ResetOnComplete = true;
 
+        [Tooltip("If true, this effect's intensity can be overridden dynamically by the JuicePlayer's Multiplier.")]
+        public bool AllowMultiplierOverride = true;
+
         public virtual float EvaluateScaleCurve(float time)
         {
             return ScaleCurve.Evaluate(time);
@@ -74,7 +77,8 @@ namespace JuiceVFX
             if (Duration <= 0) t = 1f;
 
             float curveVal = _data.EvaluateScaleCurve(t);
-            float mainScale = Mathf.LerpUnclamped(1f, curveVal, Context.Multiplier);
+            float multiplier = _data.AllowMultiplierOverride ? Context.Multiplier : 1f;
+            float mainScale = Mathf.LerpUnclamped(1f, curveVal, multiplier);
             // Avoid division by zero
             if (mainScale <= 0.0001f) mainScale = 0.0001f;
 

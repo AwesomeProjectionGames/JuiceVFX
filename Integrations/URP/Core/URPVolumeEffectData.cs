@@ -26,6 +26,9 @@ namespace JuiceVFX.Integrations.URP
         [Tooltip("Multiplier applied to the evaluated Curve value.")]
         public float Multiplier = 1f;
 
+        [Tooltip("If true, this effect's intensity can be overridden dynamically by the JuicePlayer's Multiplier.")]
+        public bool AllowMultiplierOverride = true;
+
         public override JuiceEffectRunner CreateRunner()
         {
             return CreateRunnerInstance();
@@ -99,7 +102,8 @@ namespace JuiceVFX.Integrations.URP
         {
             if (_volumeComponent == null) return;
 
-            float intensity = _data.IntensityCurve.Evaluate(rawProgress) * _data.Multiplier * Context.Multiplier;
+            float dynamicMultiplier = _data.AllowMultiplierOverride ? Context.Multiplier : 1f;
+            float intensity = _data.IntensityCurve.Evaluate(rawProgress) * _data.Multiplier * dynamicMultiplier;
             ApplyEffect(intensity);
         }
 

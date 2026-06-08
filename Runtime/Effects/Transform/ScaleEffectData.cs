@@ -13,6 +13,9 @@ namespace JuiceVFX
         [Tooltip("Return to original scale after effect finishes?")]
         public bool ResetOnComplete = true;
 
+        [Tooltip("If true, this effect's intensity can be overridden dynamically by the JuicePlayer's Multiplier.")]
+        public bool AllowMultiplierOverride = true;
+
         public virtual float EvaluateScaleCurveX(float time) => ScaleCurveX.Evaluate(time);
         public virtual float EvaluateScaleCurveY(float time) => ScaleCurveY.Evaluate(time);
         public virtual float EvaluateScaleCurveZ(float time) => ScaleCurveZ.Evaluate(time);
@@ -53,9 +56,11 @@ namespace JuiceVFX
             // If duration is 0, we assume instant or one-shot, but for curves we need time.
             if (Duration <= 0) t = 1f;
 
-            float scaleX = Mathf.LerpUnclamped(1f, _data.EvaluateScaleCurveX(t), Context.Multiplier);
-            float scaleY = Mathf.LerpUnclamped(1f, _data.EvaluateScaleCurveY(t), Context.Multiplier);
-            float scaleZ = Mathf.LerpUnclamped(1f, _data.EvaluateScaleCurveZ(t), Context.Multiplier);
+            float multiplier = _data.AllowMultiplierOverride ? Context.Multiplier : 1f;
+
+            float scaleX = Mathf.LerpUnclamped(1f, _data.EvaluateScaleCurveX(t), multiplier);
+            float scaleY = Mathf.LerpUnclamped(1f, _data.EvaluateScaleCurveY(t), multiplier);
+            float scaleZ = Mathf.LerpUnclamped(1f, _data.EvaluateScaleCurveZ(t), multiplier);
 
             _target.localScale = new Vector3(_initialScale.x * scaleX, _initialScale.y * scaleY, _initialScale.z * scaleZ);
 

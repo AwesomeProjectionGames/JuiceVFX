@@ -40,6 +40,9 @@ namespace JuiceVFX
         [Tooltip("If true, the effect never completes automatically and holds its value until explicitly stopped.")]
         public bool HoldUntilStopped = false;
 
+        [Tooltip("If true, this effect's intensity can be overridden dynamically by the JuicePlayer's Multiplier.")]
+        public bool AllowMultiplierOverride = true;
+
         public override JuiceEffectRunner CreateRunner()
         {
             return new CameraPropertyEffectRunner(this);
@@ -103,7 +106,8 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / Duration);
             if (Duration <= 0) t = 1f;
 
-            float intensity = _data.EvaluateIntensityCurve(t) * Context.Multiplier;
+            float multiplier = _data.AllowMultiplierOverride ? Context.Multiplier : 1f;
+            float intensity = _data.EvaluateIntensityCurve(t) * multiplier;
             ApplyValue(intensity);
 
             if (t >= 1f && !_data.HoldUntilStopped)

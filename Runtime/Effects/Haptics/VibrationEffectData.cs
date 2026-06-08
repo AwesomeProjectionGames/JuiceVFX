@@ -14,6 +14,9 @@ namespace JuiceVFX
         [Tooltip("High Frequency Motor speed curve.")]
         public AnimationCurve HighFrequencyMotor = AnimationCurve.Linear(0, 0.5f, 1, 0);
 
+        [Tooltip("If true, this effect's intensity can be overridden dynamically by the JuicePlayer's Multiplier.")]
+        public bool AllowMultiplierOverride = true;
+
         public virtual float EvaluateLowFrequencyMotor(float time) => LowFrequencyMotor.Evaluate(time);
         public virtual float EvaluateHighFrequencyMotor(float time) => HighFrequencyMotor.Evaluate(time);
 
@@ -46,8 +49,9 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / Duration);
             if (Duration <= 0) t = 1f;
 
-            float low = _data.EvaluateLowFrequencyMotor(t) * Context.Multiplier;
-            float high = _data.EvaluateHighFrequencyMotor(t) * Context.Multiplier;
+            float multiplier = _data.AllowMultiplierOverride ? Context.Multiplier : 1f;
+            float low = _data.EvaluateLowFrequencyMotor(t) * multiplier;
+            float high = _data.EvaluateHighFrequencyMotor(t) * multiplier;
 
             foreach (var gamepad in _gamepads)
             {

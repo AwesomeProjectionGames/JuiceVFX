@@ -53,6 +53,9 @@ namespace JuiceVFX
         [Tooltip("If true, the material property is strictly restored to its initial value when the effect stops.")]
         public bool ResetInitialValue = false;
 
+        [Tooltip("If true, this effect's intensity can be overridden dynamically by the JuicePlayer's Multiplier.")]
+        public bool AllowMultiplierOverride = true;
+
         public virtual float EvaluateIntensityCurve(float time) => IntensityCurve.Evaluate(time);
 
         public override JuiceEffectRunner CreateRunner()
@@ -130,7 +133,8 @@ namespace JuiceVFX
             float t = Mathf.Clamp01(_timer / Duration);
             if (Duration <= 0) t = 1f;
 
-            float intensity = _data.EvaluateIntensityCurve(t) * Context.Multiplier;
+            float multiplier = _data.AllowMultiplierOverride ? Context.Multiplier : 1f;
+            float intensity = _data.EvaluateIntensityCurve(t) * multiplier;
 
             ApplyProperty(intensity);
 
