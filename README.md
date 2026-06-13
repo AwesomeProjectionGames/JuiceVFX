@@ -7,6 +7,7 @@ A powerful, customizable, and artist-friendly system for adding "juice" (game fe
 - **Event-Driven**: Trigger effects via UnityEvents or C# Events.
 - **Modular**: Mix and match effects using `JuiceFeedback` ScriptableObjects.
 - **Artist Friendly**: Heavily relies on AnimationCurves and visual cues.
+- **Enhanced Editor UX**: Seamlessly manage effects as sub-assets or shared presets directly within the `JuiceFeedback` inspector.
 
 ## Effects Included
 
