@@ -14,11 +14,24 @@ namespace JuiceVFX
         private readonly List<JuiceEffectRunner> activeRunners = new List<JuiceEffectRunner>();
         private readonly List<JuiceEffectRunner> runnersToRemove = new List<JuiceEffectRunner>();
 
-        protected virtual void Awake() { }
+#if UNITY_EDITOR
+        /// <summary>
+        /// Gets the list of currently active effect runners managed by this player.
+        /// </summary>
+        public IReadOnlyList<JuiceEffectRunner> ActiveRunners => activeRunners;
+#endif
 
-        protected virtual void Start() { }
+        protected virtual void Awake()
+        {
+        }
 
-        protected virtual void OnEnable() { }
+        protected virtual void Start()
+        {
+        }
+
+        protected virtual void OnEnable()
+        {
+        }
 
         protected virtual void Update()
         {
@@ -47,12 +60,15 @@ namespace JuiceVFX
             StopAll();
         }
 
-        protected virtual void OnDestroy() { }
+        protected virtual void OnDestroy()
+        {
+        }
 
         /// <summary>
         /// Plays the specified feedback.
         /// </summary>
-        public void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null, Quaternion? rotation = null, float multiplier = 1f, float? duration = null)
+        public void Play(JuiceFeedback feedback, bool isCameraTarget = false, Vector3? contactPoint = null,
+            Quaternion? rotation = null, float multiplier = 1f, float? duration = null)
         {
             if (feedback == null) return;
             Play(feedback.Effects, isCameraTarget, contactPoint, rotation, multiplier, duration);
@@ -73,6 +89,7 @@ namespace JuiceVFX
             {
                 runner.Stop();
             }
+
             activeRunners.Clear();
         }
 
@@ -89,13 +106,18 @@ namespace JuiceVFX
             }
         }
 
-        protected void StartNewEffectRunner(JuiceEffectData effectData, JuiceFeedbackContext context, float? durationOverride = null)
+        protected void StartNewEffectRunner(JuiceEffectData effectData, JuiceFeedbackContext context,
+            float? durationOverride = null)
         {
             var runner = effectData.CreateRunner();
             runner.EffectData = effectData;
             runner.Initialize(this, context);
             runner.Start(effectData.Delay, durationOverride);
             activeRunners.Add(runner);
+
+#if UNITY_EDITOR
+            JuiceDebugger.RecordEffect(this, effectData, context, durationOverride, runner);
+#endif
         }
     }
 }

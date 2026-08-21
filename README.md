@@ -8,6 +8,7 @@ A powerful, customizable, and artist-friendly system for adding "juice" (game fe
 - **Modular**: Mix and match effects using `JuiceFeedback` ScriptableObjects.
 - **Artist Friendly**: Heavily relies on AnimationCurves and visual cues.
 - **Enhanced Editor UX**: Seamlessly manage effects as sub-assets or shared presets directly within the `JuiceFeedback` inspector.
+- **Live Debugger**: Dedicated Editor Window to inspect and monitor played effects in real-time with full contextual diagnostics.
 
 ## Effects Included
 
@@ -37,3 +38,13 @@ Optional third-party integrations are gated behind scripting define symbols. Add
 | DOTween | `DOTWEEN` | DOTween-based easing overrides for all existing effects (Shake, Scale, Squash & Stretch, Camera, Light, Material, Audio Mixer, Haptics, Freeze Frame) |
 
 > **Note**: Without the corresponding scripting define symbol, the integration files are fully excluded from compilation, so missing the package will never cause compilation errors.
+
+## Juice Debugger
+
+Open the debugger via **Tools → JuiceVFX → Juice Debugger** or **Window → Analysis → JuiceVFX Debugger**.
+
+- **Playback History & Timeline**: Real-time event log with category color badges, durations, and multiplier info.
+- **Context Inspection**: Track who invoked the effect, target player entity/component, connected input devices/gamepads, root transform & contact point, and connected renderers.
+- **Live Runner State**: Track active runners, progress percentage, remaining delay, and stop active runners on demand.
+- **Editor Actions**: Ping effect ScriptableObjects, ping player GameObjects, replay effects live in Play Mode, or copy markdown debug reports to clipboard.
+- **Zero Build Overhead**: Completely stripped at compile-time in standalone builds via `[Conditional("UNITY_EDITOR")]`.

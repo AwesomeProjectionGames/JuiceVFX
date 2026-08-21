@@ -18,6 +18,13 @@ namespace JuiceVFX
         public float Duration { get; protected set; }
         public bool IsFinished { get; protected set; }
         public bool IsPlaying { get; protected set; }
+#if UNITY_EDITOR
+        public float ElapsedTime => _timer;
+        public float DelayRemaining => _delayTimer;
+        public JuiceFeedbackContext FeedbackContext => Context;
+        public IJuicePlayer PlayerInstance => Player;
+        public float Progress => Duration > 0f ? Mathf.Clamp01(_timer / Duration) : 1f;
+#endif
 
         public abstract void OnStart(IJuicePlayer player);
         public abstract void OnUpdate(float deltaTime);
