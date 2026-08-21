@@ -1,0 +1,760 @@
+/* ═══════════════════════════════════════════════════════
+   JuiceVFX Editor — Shared Stylesheet
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Category Pill ─── */
+
+.category-pill {
+    border-radius: 8px;
+    padding: 1px 6px;
+    font-size: 9px;
+    -unity-font-style: bold;
+    color: white;
+    height: 16px;
+    min-width: 50px;
+    -unity-text-align: middle-center;
+    flex-shrink: 0;
+}
+
+.category-pill--camera      { background-color: #1f87e6; }
+.category-pill--haptics     { background-color: #fa8c00; }
+.category-pill--transform   { background-color: #9940d9; }
+.category-pill--material    { background-color: #33b359; }
+.category-pill--audio       { background-color: #f2bf1a; color: #1e1e1e; }
+.category-pill--light       { background-color: #00bfe6; }
+.category-pill--time        { background-color: #e63835; }
+.category-pill--gameobject  { background-color: #009988; }
+.category-pill--postprocess { background-color: #b34d99; }
+.category-pill--general     { background-color: #808080; }
+
+/* ─── Status Chip ─── */
+
+.status-chip {
+    border-radius: 8px;
+    padding: 1px 8px;
+    font-size: 10px;
+    -unity-font-style: bold;
+    height: 18px;
+    -unity-text-align: middle-center;
+    flex-shrink: 0;
+}
+
+.status-chip--active {
+    background-color: rgba(78, 201, 84, 0.25);
+    color: #4ec954;
+}
+
+.status-chip--inactive {
+    background-color: rgba(128, 128, 128, 0.2);
+    color: #888888;
+}
+
+.status-chip--recording {
+    background-color: rgba(78, 201, 84, 0.2);
+    color: #66dd6a;
+}
+
+.status-chip--paused {
+    background-color: rgba(204, 167, 0, 0.2);
+    color: #cca700;
+}
+
+/* ─── Search Toolbar ─── */
+
+.search-toolbar {
+    flex-direction: row;
+    align-items: center;
+    padding: 2px 4px;
+}
+
+.search-toolbar__icon {
+    font-size: 12px;
+    width: 18px;
+    -unity-text-align: middle-center;
+    color: #888888;
+    flex-shrink: 0;
+}
+
+.search-toolbar__field {
+    flex-grow: 1;
+    min-width: 80px;
+    max-width: 200px;
+}
+
+.search-toolbar__clear-btn {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    margin-left: 2px;
+    border-radius: 8px;
+    -unity-text-align: middle-center;
+    background-color: rgba(128, 128, 128, 0.3);
+    border-width: 0;
+    color: #bbbbbb;
+    flex-shrink: 0;
+}
+
+.search-toolbar__clear-btn:hover {
+    background-color: rgba(241, 76, 76, 0.4);
+    color: #ffffff;
+}
+
+/* ─── Split Pane ─── */
+
+.split-pane {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.split-pane__left {
+    min-width: 240px;
+    overflow: hidden;
+}
+
+.split-pane__handle {
+    width: 5px;
+    background-color: #1a1a1a;
+    cursor: resize-horizontal;
+    flex-shrink: 0;
+}
+
+.split-pane__handle:hover {
+    background-color: #3794ff;
+}
+
+.split-pane__handle--dragging {
+    background-color: #3794ff;
+}
+
+.split-pane__right {
+    flex-grow: 1;
+    min-width: 240px;
+    overflow: hidden;
+}
+
+/* ─── Debugger Window Root ─── */
+
+.juice-debugger-root {
+    flex-grow: 1;
+}
+
+/* ─── Toolbar ─── */
+
+.debugger-toolbar {
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 8px;
+    border-bottom-width: 1px;
+    border-bottom-color: #1a1a1a;
+    background-color: #383838;
+    min-height: 28px;
+    flex-shrink: 0;
+}
+
+.debugger-toolbar__title {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: #d4d4d4;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.debugger-toolbar__btn {
+    margin: 0 2px;
+    padding: 2px 8px;
+    font-size: 11px;
+    border-radius: 3px;
+    height: 22px;
+}
+
+.debugger-toolbar__btn--record {
+    -unity-font-style: bold;
+    min-width: 90px;
+}
+
+.debugger-toolbar__toggle {
+    margin: 0 2px;
+    font-size: 11px;
+}
+
+.debugger-toolbar__popup {
+    min-width: 80px;
+    font-size: 11px;
+    margin: 0 4px;
+}
+
+.debugger-toolbar__spacer {
+    flex-grow: 1;
+}
+
+.debugger-toolbar__stats {
+    font-size: 11px;
+    color: #888888;
+    margin-left: 4px;
+    flex-shrink: 0;
+}
+
+/* ─── Filter Bar ─── */
+
+.debugger-filter-bar {
+    flex-direction: row;
+    align-items: center;
+    padding: 3px 8px;
+    border-bottom-width: 1px;
+    border-bottom-color: #1a1a1a;
+    background-color: #333333;
+    min-height: 26px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.debugger-filter-bar__label {
+    font-size: 10px;
+    color: #888888;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.debugger-filter-bar__popup {
+    min-width: 80px;
+    font-size: 11px;
+    margin-right: 8px;
+}
+
+.debugger-filter-bar__toggle {
+    font-size: 11px;
+    margin-left: 4px;
+}
+
+.debugger-filter-bar__spacer {
+    flex-grow: 1;
+}
+
+/* ─── Timeline Pane ─── */
+
+.timeline-pane {
+    flex-grow: 1;
+    background-color: #252525;
+}
+
+.timeline-pane__header {
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom-width: 1px;
+    border-bottom-color: #1a1a1a;
+}
+
+.timeline-pane__header-title {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: #cccccc;
+}
+
+.timeline-pane__empty {
+    padding: 20px;
+    -unity-text-align: middle-center;
+    color: #888888;
+    font-size: 11px;
+    white-space: normal;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.timeline-pane__empty-title {
+    font-size: 13px;
+    -unity-font-style: bold;
+    color: #aaaaaa;
+    margin-bottom: 6px;
+}
+
+.timeline-pane__empty-subtitle {
+    font-size: 11px;
+    color: #777777;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    max-width: 280px;
+}
+
+/* ─── Timeline Entry Item ─── */
+
+.timeline-entry {
+    padding: 5px 8px;
+    margin: 1px 4px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgba(60, 60, 60, 0.5);
+    background-color: #2d2d2d;
+}
+
+.timeline-entry:hover {
+    background-color: #363636;
+    border-color: #505050;
+}
+
+.timeline-entry--selected {
+    background-color: #264f78;
+    border-color: #3794ff;
+}
+
+.timeline-entry--active {
+    background-color: #1a3a1a;
+    border-color: rgba(78, 201, 84, 0.4);
+}
+
+.timeline-entry--selected.timeline-entry--active {
+    background-color: #1e4a3e;
+    border-color: #3794ff;
+}
+
+.timeline-entry__row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.timeline-entry__time {
+    font-size: 10px;
+    color: #888888;
+    width: 55px;
+    flex-shrink: 0;
+}
+
+.timeline-entry__name {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: #d4d4d4;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.timeline-entry__running-label {
+    font-size: 10px;
+    -unity-font-style: bold;
+    color: #4ec954;
+    width: 70px;
+    -unity-text-align: middle-right;
+    flex-shrink: 0;
+}
+
+.timeline-entry__id {
+    font-size: 10px;
+    color: #666666;
+    width: 35px;
+    -unity-text-align: middle-right;
+    flex-shrink: 0;
+}
+
+.timeline-entry__chip {
+    font-size: 10px;
+    color: #999999;
+    margin-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.timeline-entry__chip--player {
+    max-width: 130px;
+}
+
+.timeline-entry__chip--gamepad {
+    max-width: 100px;
+}
+
+.timeline-entry__chip--renderer {
+    width: 35px;
+}
+
+.timeline-entry__chip--duration {
+    -unity-text-align: middle-right;
+}
+
+.timeline-entry__chip--multiplier {
+    -unity-font-style: bold;
+    -unity-text-align: middle-right;
+}
+
+.timeline-entry__progress {
+    height: 3px;
+    margin-top: 2px;
+    background-color: rgba(78, 201, 84, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.timeline-entry__progress-fill {
+    height: 100%;
+    background-color: #4ec954;
+    border-radius: 2px;
+}
+
+/* ─── Details Inspector Pane ─── */
+
+.details-pane {
+    flex-grow: 1;
+    background-color: #2a2a2a;
+}
+
+.details-pane__scroll {
+    flex-grow: 1;
+    padding: 8px;
+}
+
+.details-pane__empty {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.details-pane__empty-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: #aaaaaa;
+    margin-bottom: 8px;
+}
+
+.details-pane__empty-subtitle {
+    font-size: 11px;
+    color: #777777;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    max-width: 300px;
+}
+
+/* ─── Detail Cards ─── */
+
+.detail-card {
+    background-color: #333333;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #3c3c3c;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+}
+
+.detail-card__header {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.detail-card__title {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: #cccccc;
+    flex-grow: 1;
+}
+
+.detail-card__row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.detail-card__label {
+    font-size: 11px;
+    color: #888888;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.detail-card__value {
+    font-size: 11px;
+    color: #d4d4d4;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.detail-card__value--bold {
+    -unity-font-style: bold;
+}
+
+.detail-card__value--selectable {
+    font-size: 10px;
+    color: #aaaaaa;
+}
+
+.detail-card__subtitle {
+    font-size: 11px;
+    color: #999999;
+    margin-top: 4px;
+}
+
+.detail-card__actions {
+    flex-direction: row;
+    margin-top: 6px;
+}
+
+.detail-card__action-btn {
+    padding: 3px 8px;
+    font-size: 11px;
+    border-radius: 3px;
+    margin-right: 4px;
+}
+
+.detail-card__action-btn--replay {
+    background-color: rgba(78, 201, 84, 0.25);
+    color: #4ec954;
+    border-color: rgba(78, 201, 84, 0.4);
+}
+
+.detail-card__action-btn--replay:hover {
+    background-color: rgba(78, 201, 84, 0.4);
+}
+
+.detail-card__action-btn--danger {
+    background-color: rgba(241, 76, 76, 0.15);
+    color: #f14c4c;
+    border-color: rgba(241, 76, 76, 0.3);
+}
+
+.detail-card__action-btn--danger:hover {
+    background-color: rgba(241, 76, 76, 0.3);
+}
+
+/* ─── Progress Bar ─── */
+
+.live-progress {
+    height: 18px;
+    background-color: #1e1e1e;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 4px 0;
+    flex-direction: row;
+    align-items: center;
+}
+
+.live-progress__fill {
+    height: 100%;
+    background-color: rgba(55, 148, 255, 0.5);
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.live-progress__label {
+    font-size: 10px;
+    color: #d4d4d4;
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+    position: relative;
+}
+
+/* ─── Gamepad / Renderer Sub-Cards ─── */
+
+.sub-card {
+    background-color: #2d2d2d;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #3c3c3c;
+    padding: 5px 8px;
+    margin: 2px 0;
+}
+
+.sub-card__title {
+    font-size: 11px;
+    -unity-font-style: bold;
+    color: #cccccc;
+}
+
+.sub-card__detail {
+    font-size: 10px;
+    color: #999999;
+    margin-top: 2px;
+}
+
+.sub-card__badge {
+    font-size: 9px;
+    -unity-font-style: bold;
+    color: #3794ff;
+}
+
+/* ─── Status Bar ─── */
+
+.status-bar {
+    flex-direction: row;
+    align-items: center;
+    padding: 2px 8px;
+    border-top-width: 1px;
+    border-top-color: #1a1a1a;
+    background-color: #2d2d2d;
+    min-height: 22px;
+    flex-shrink: 0;
+}
+
+.status-bar__label {
+    font-size: 10px;
+    color: #888888;
+    flex-grow: 1;
+}
+
+.status-bar__mode {
+    font-size: 10px;
+    -unity-font-style: bold;
+    flex-shrink: 0;
+}
+
+.status-bar__mode--play {
+    color: #4ec954;
+}
+
+.status-bar__mode--edit {
+    color: #888888;
+}
+
+/* ─── Feedback Editor ─── */
+
+.feedback-editor {
+    padding: 4px 0;
+}
+
+.feedback-editor__header {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.feedback-editor__title {
+    font-size: 13px;
+    -unity-font-style: bold;
+    color: #d4d4d4;
+    flex-grow: 1;
+}
+
+.feedback-editor__count {
+    font-size: 11px;
+    color: #888888;
+}
+
+.feedback-editor__add-btn {
+    height: 30px;
+    margin-top: 8px;
+    font-size: 12px;
+    -unity-font-style: bold;
+    background-color: rgba(78, 201, 84, 0.2);
+    border-color: rgba(78, 201, 84, 0.4);
+    color: #4ec954;
+    border-radius: 4px;
+}
+
+.feedback-editor__add-btn:hover {
+    background-color: rgba(78, 201, 84, 0.35);
+}
+
+.feedback-editor__drop-zone {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.feedback-editor__drop-label {
+    font-size: 11px;
+    color: #888888;
+    margin-right: 8px;
+}
+
+/* ─── Effect Item ─── */
+
+.effect-item {
+    background-color: #333333;
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: #3c3c3c;
+    margin-bottom: 4px;
+}
+
+.effect-item__header {
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom-width: 1px;
+    border-bottom-color: transparent;
+}
+
+.effect-item__header--expanded {
+    border-bottom-color: #3c3c3c;
+}
+
+.effect-item__foldout-arrow {
+    font-size: 10px;
+    color: #999999;
+    width: 16px;
+    -unity-text-align: middle-center;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.effect-item__name {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: #d4d4d4;
+    flex-grow: 1;
+}
+
+.effect-item__badge {
+    font-size: 9px;
+    color: #888888;
+    margin-right: 6px;
+}
+
+.effect-item__btn {
+    width: 24px;
+    height: 20px;
+    font-size: 11px;
+    -unity-text-align: middle-center;
+    padding: 0;
+    margin: 0 1px;
+    border-radius: 3px;
+}
+
+.effect-item__btn--action {
+    width: auto;
+    padding: 0 6px;
+    font-size: 10px;
+}
+
+.effect-item__btn--delete {
+    background-color: rgba(241, 76, 76, 0.2);
+    border-color: rgba(241, 76, 76, 0.3);
+    color: #f14c4c;
+}
+
+.effect-item__btn--delete:hover {
+    background-color: rgba(241, 76, 76, 0.4);
+}
+
+.effect-item__body {
+    padding: 8px 12px;
+}
+
+.effect-item__body--hidden {
+    display: none;
+}
+
+.effect-item__preset-field {
+    margin-bottom: 6px;
+}
+
+/* ─── Help Box ─── */
+
+.juice-help-box {
+    background-color: #2d2d2d;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: #3c3c3c;
+    padding: 8px 10px;
+    margin: 4px 0;
+}
+
+.juice-help-box__text {
+    font-size: 11px;
+    color: #888888;
+    white-space: normal;
+}
