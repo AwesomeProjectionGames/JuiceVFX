@@ -2,7 +2,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 
 namespace JuiceVFX
 {
@@ -16,15 +18,19 @@ namespace JuiceVFX
         public Renderer[] targetRenderers = System.Array.Empty<Renderer>();
         public Transform? targetRoot;
 
-        [Header("JuicePlayer Settings")]
+#if ENABLE_INPUT_SYSTEM
+        [Header("JuicePlayer Input Settings")]
         public Gamepad[] targetGamepads = System.Array.Empty<Gamepad>();
         public bool takeCurrentGamepadAsDefault = true;
-        public JuicePlayer? cameraPlayer;
 
         /// <summary>
         /// Whether the current active gamepad should be considered if no targets are specified.
         /// </summary>
         public bool TakeCurrentGamepadAsDefault { get => takeCurrentGamepadAsDefault; set => takeCurrentGamepadAsDefault = value; }
+#endif
+
+        [Header("Camera Settings")]
+        public JuicePlayer? cameraPlayer;
 
         /// <summary>
         /// The player component located on the main camera to redirect camera effects.
@@ -66,13 +72,17 @@ namespace JuiceVFX
         
         protected JuiceFeedbackContext CreateFeedbackContext(Vector3? contactPoint, Quaternion? rotation, float multiplier)
         {
+            var root = targetRoot != null ? targetRoot : transform;
+
+#if ENABLE_INPUT_SYSTEM
             var gamepads = (targetGamepads != null && targetGamepads.Length > 0)
                 ? targetGamepads
                 : (TakeCurrentGamepadAsDefault && Gamepad.current != null ? new[] { Gamepad.current } : System.Array.Empty<Gamepad>());
 
-            var root = targetRoot != null ? targetRoot : transform;
-
             return new JuiceFeedbackContext(contactPoint, rotation, gamepads, targetRenderers, root, multiplier);
+#else
+            return new JuiceFeedbackContext(contactPoint, rotation, targetRenderers, root, multiplier);
+#endif
         }
 
         protected virtual void PlayCameraEffects(List<JuiceEffectData>? cameraEffects, Vector3? contactPoint, Quaternion? rotation, float multiplier, float? duration = null)

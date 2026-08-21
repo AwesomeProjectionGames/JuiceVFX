@@ -1,5 +1,6 @@
 #nullable enable
 
+#if ENABLE_INPUT_SYSTEM
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -49,3 +50,4 @@ namespace JuiceVFX
         }
     }
 }
+#endif

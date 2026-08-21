@@ -1,5 +1,9 @@
+#nullable enable
+
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 
 namespace JuiceVFX
 {
@@ -18,12 +22,15 @@ namespace JuiceVFX
     {
         public Vector3? ContactPoint;
         public Quaternion? Rotation;
-        public Gamepad[] Gamepads;
-        public Renderer[] Renderers;
-        public Transform RootTransform;
+#if ENABLE_INPUT_SYSTEM
+        public Gamepad[]? Gamepads;
+#endif
+        public Renderer[]? Renderers;
+        public Transform? RootTransform;
         public float Multiplier;
 
-        public JuiceFeedbackContext(Vector3? contactPoint = null, Quaternion? rotation = null, Gamepad[] gamepads = null, Renderer[] renderers = null, Transform rootTransform = null, float multiplier = 1f)
+#if ENABLE_INPUT_SYSTEM
+        public JuiceFeedbackContext(Vector3? contactPoint = null, Quaternion? rotation = null, Gamepad[]? gamepads = null, Renderer[]? renderers = null, Transform? rootTransform = null, float multiplier = 1f)
         {
             ContactPoint = contactPoint;
             Rotation = rotation;
@@ -32,5 +39,15 @@ namespace JuiceVFX
             RootTransform = rootTransform;
             Multiplier = multiplier;
         }
+#else
+        public JuiceFeedbackContext(Vector3? contactPoint = null, Quaternion? rotation = null, Renderer[]? renderers = null, Transform? rootTransform = null, float multiplier = 1f)
+        {
+            ContactPoint = contactPoint;
+            Rotation = rotation;
+            Renderers = renderers;
+            RootTransform = rootTransform;
+            Multiplier = multiplier;
+        }
+#endif
     }
 }

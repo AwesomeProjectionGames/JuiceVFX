@@ -24,7 +24,7 @@ A powerful, customizable, and artist-friendly system for adding "juice" (game fe
 
 ## Dependencies
 
-- **Unity Input System**: Used for gamepad vibration.
+- **Unity Input System (Optional)**: Used for gamepad vibration haptics. Automatically detected and enabled via `versionDefines` when `com.unity.inputsystem` is installed. If absent, the package compiles cleanly without gamepad support.
 - **URP (Optional)**: For Post Processing effects.
 - **DOTween (Optional)**: For DOTween-based easing on effects.
 

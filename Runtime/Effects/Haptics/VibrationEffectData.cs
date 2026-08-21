@@ -1,5 +1,7 @@
 using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 
 namespace JuiceVFX
 {
@@ -29,7 +31,9 @@ namespace JuiceVFX
     public class VibrationEffectRunner : JuiceEffectRunner
     {
         private VibrationEffectData _data;
+#if ENABLE_INPUT_SYSTEM
         private Gamepad[] _gamepads;
+#endif
 
         public VibrationEffectRunner(VibrationEffectData data)
         {
@@ -38,11 +42,14 @@ namespace JuiceVFX
 
         public override void OnStart(IJuicePlayer player)
         {
+#if ENABLE_INPUT_SYSTEM
             _gamepads = Context.Gamepads ?? System.Array.Empty<Gamepad>();
+#endif
         }
 
         public override void OnUpdate(float deltaTime)
         {
+#if ENABLE_INPUT_SYSTEM
             if (_gamepads == null || _gamepads.Length == 0) return;
 
             _timer += deltaTime;
@@ -63,10 +70,14 @@ namespace JuiceVFX
             {
                 Stop();
             }
+#else
+            Stop();
+#endif
         }
 
         public override void OnStop()
         {
+#if ENABLE_INPUT_SYSTEM
             if (_gamepads != null)
             {
                 foreach (var gamepad in _gamepads)
@@ -75,6 +86,7 @@ namespace JuiceVFX
                     gamepad.SetMotorSpeeds(0, 0);
                 }
             }
+#endif
         }
     }
 }
