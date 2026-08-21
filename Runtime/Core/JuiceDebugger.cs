@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using UnityEngine;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 
 namespace JuiceVFX
 {
@@ -23,6 +24,7 @@ namespace JuiceVFX
         public bool IsCurrent;
         public bool IsAdded;
 
+#if ENABLE_INPUT_SYSTEM
         public static JuiceGamepadDebugInfo FromGamepad(Gamepad gamepad)
         {
             if (gamepad == null) return new JuiceGamepadDebugInfo { Name = "Null Gamepad" };
@@ -37,6 +39,7 @@ namespace JuiceVFX
                 IsAdded = gamepad.added
             };
         }
+#endif
     }
 
     /// <summary>
@@ -250,6 +253,7 @@ namespace JuiceVFX
                 }
             }
 
+#if ENABLE_INPUT_SYSTEM
             // Connected Gamepads
             if (context.Gamepads != null)
             {
@@ -261,6 +265,7 @@ namespace JuiceVFX
                     }
                 }
             }
+#endif
 
             // Caller / Invoker Info
             ExtractInvokerInfo(out entry.InvokerClass, out entry.InvokerMethod, out entry.InvokerFullInfo);
