@@ -2,6 +2,7 @@
 
 using System;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -460,7 +461,7 @@ namespace JuiceVFX.Editor
                 enterChildren = false;
                 if (iterator.name == "m_Script") continue;
 
-                var propField = new UnityEditor.UIElements.PropertyField(iterator.Copy());
+                var propField = new PropertyField(iterator.Copy());
                 propField.style.marginLeft = 8;
                 propField.Bind(so);
                 container.Add(propField);
